@@ -47,8 +47,10 @@ import java.util.concurrent.TimeUnit;
 import net.sourceforge.argparse4j.ArgumentParsers;
 import net.sourceforge.argparse4j.impl.Arguments;
 import net.sourceforge.argparse4j.inf.ArgumentParser;
+import net.sourceforge.argparse4j.inf.Namespace;
 import org.apache.log4j.EnhancedPatternLayout;
 import org.apache.log4j.FileAppender;
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -134,7 +136,61 @@ public final class CANARY extends Engine implements Serializable {
                         messages.getString("application.copyright"));
         return parser;
     }
-
+    /**
+     * Parse arguments --quiet and --verbose to set the log level
+     *
+     * @param args results of Argparse4j parseArgs
+     * @return an log4j log level
+     */
+    public Level setup(Namespace args) {
+        Integer verbose = args.getInt("verbose");
+        Integer quiet = args.getInt("quiet");
+        int level;
+        if (verbose != null && quiet != null) {
+            level = quiet.intValue() - verbose.intValue();
+        } else if (verbose != null) {
+            level = 0 - verbose.intValue();
+        } else if (quiet != null) {
+            level = quiet.intValue();
+        } else {
+            level = 0;
+        }
+        if (level < -3) {
+            level = -3;
+        } else if (level > 4) {
+            level = 4;
+        }
+        Level eLevel = Level.ALL;
+        switch (level) {
+            case -3:
+                eLevel = (Level.ALL);
+                break;
+            case -2:
+                eLevel = (Level.TRACE);
+                break;
+            case -1:
+                eLevel = (Level.DEBUG);
+                break;
+            case 0:
+                eLevel = (Level.INFO);
+                break;
+            case 1:
+                eLevel = (Level.WARN);
+                break;
+            case 2:
+                eLevel = (Level.ERROR);
+                break;
+            case 3:
+                eLevel = (Level.FATAL);
+                break;
+            case 4:
+                eLevel = (Level.OFF);
+                break;
+        }
+        Logger.getRootLogger().setLevel(eLevel);
+        return eLevel;
+    }
+    
     public CANARY() {
         super();
         super.setComponentFactory(new EDSComponents());
