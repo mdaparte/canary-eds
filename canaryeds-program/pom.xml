@@ -1,0 +1,236 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>gov.sandia.canaryeds</groupId>
+    <artifactId>canaryeds-program</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>canaryeds-program</name>
+
+    <organization>
+        <name>Sandia Corporation</name>
+        <url>http://www.sandia.gov/</url>
+    </organization>
+    <inceptionYear>2007</inceptionYear>
+    <description>CANARY-EDS is an event detection software tool for water quality and other time-series, or synchronized data.</description>
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <url>http://software.sandia.gov/trac/canary</url>
+    <!-- Now required by versions plugin -->
+    <mailingLists>
+        <mailingList>
+            <name>CANARY-EDS User List</name>
+            <subscribe></subscribe>
+            <unsubscribe></unsubscribe>
+            <post></post>
+            <archive></archive>
+        </mailingList>
+    </mailingLists>
+    <prerequisites>
+        <maven>2.2.1</maven>
+    </prerequisites>
+    <ciManagement>
+        <system>hudson</system>
+        <url>https://jenkins.sandia.gov/job/canaryeds-base_trunk/</url>
+    </ciManagement>
+    <scm>
+        <connection>scm:svn:https://software.sandia.gov/svn/teva/canary/canary/trunk/packages/java/canaryeds</connection>
+        <developerConnection>scm:svn:https://software.sandia.gov/svn/teva/canary/canary/trunk/packages/java/canaryeds</developerConnection>
+        <url>https://software.sandia.gov/svn/teva/canary/canary/trunk/packages/java/canaryeds</url>
+    </scm>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <canaryeds.buildYear>2013</canaryeds.buildYear>
+        <canaryeds.copyright>Copyright ${project.inceptionYear}-${canaryeds.buildYear} ${project.organization.name}\n${canaryeds.DOEstatement}</canaryeds.copyright>
+        <canaryeds.DOEstatement>Under the terms of Contract DE-AC04-94AL85000 with Sandia Corporation,\nthe U.S. Government retains certain rights in this software.</canaryeds.DOEstatement>
+        <canaryeds.sourceRev>Source rev. ${env.SVN_REVISION}</canaryeds.sourceRev>
+        <canaryeds.buildNumber>Build ${env.BUILD_ID} ${env.BUILD_TAG}</canaryeds.buildNumber>
+        <netbeans.hint.license>apache20_sandia</netbeans.hint.license>
+    </properties>
+
+    <developers>
+        <developer>
+            <name>David B. Hart</name>
+            <id>dbhart</id>
+            <email>dbhart at sandia dot gov</email>
+            <organization>Sandia National Laboratories</organization>
+            <roles>
+                <role>lead developer</role>
+            </roles>
+            <timezone>America/Denver</timezone>
+        </developer>
+        <developer>
+            <name>Nathanael Rackley</name>
+            <id>nprackl</id>
+            <organization>Sandia National Laboratories</organization>
+            <roles>
+                <role>software developer</role>
+            </roles>
+            <timezone>America/Denver</timezone>
+        </developer>
+    </developers>
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>gov.sandia.canaryeds.program.CanaryEDS</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.2-beta-5</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>gov.sandia.canaryeds.program.CanaryEDS</mainClass>
+                        </manifest>
+                    </archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id> <!-- this is used for inheritance merges -->
+                        <phase>package</phase> <!-- bind to the packaging phase -->
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>		
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.9.1</version>
+                <configuration>
+                    <bottom>Copyright {currentYear} {organizationName}. ${project.DOEstatement}</bottom>
+                    <show>package</show>
+                    <author>false</author>
+                    <version>false</version>
+                    <header>${project.name} version ${project.version}</header>
+                    <docfilessubdirs>true</docfilessubdirs>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <formats>
+                        <format>xml</format>
+                    </formats>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <version>2.16</version>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <formats>
+                        <format>html</format>
+                    </formats>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.swinglabs</groupId>
+            <artifactId>swing-layout</artifactId>
+            <version>1.0.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jdesktop</groupId>
+            <artifactId>beansbinding</artifactId>
+            <version>1.2.1</version>
+        </dependency>
+        <dependency>
+            <artifactId>snakeyaml</artifactId>
+            <groupId>org.yaml</groupId>
+            <type>jar</type>
+            <version>1.11</version>
+        </dependency>
+        <dependency>
+            <artifactId>log4j</artifactId>
+            <groupId>log4j</groupId>
+            <type>jar</type>
+            <version>1.2.17</version>
+        </dependency>
+        <dependency>
+            <artifactId>json-simple</artifactId>
+            <groupId>com.googlecode.json-simple</groupId>
+            <type>jar</type>
+            <version>1.1.1</version>
+        </dependency>
+        <dependency>
+            <artifactId>commons-math3</artifactId>
+            <groupId>org.apache.commons</groupId>
+            <type>jar</type>
+            <version>3.2</version>
+        </dependency>
+        <dependency>
+            <artifactId>argparse4j</artifactId>
+            <groupId>net.sourceforge.argparse4j</groupId>
+            <type>jar</type>
+            <version>0.4.1</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>canaryeds-base</artifactId>
+            <version>5.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+</project>
