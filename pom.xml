@@ -1,0 +1,217 @@
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>7</version>
+    </parent>
+    <groupId>gov.sandia.canaryeds</groupId>
+    <artifactId>gov-sandia-canaryeds</artifactId>
+    <packaging>pom</packaging>
+    <version>5.0</version>
+    <name>CANARY-EDS</name>
+    <description>Event detection software for water infrastructure security</description>
+    <url>http://software.sandia.gov/trac/canaryeds</url>
+    <inceptionYear>2007</inceptionYear>
+    <licenses>
+        <license>
+            <name>The Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <name>David B. Hart</name>
+        </developer>
+        <developer>
+            <name>Nathanael P. Rackley</name>
+        </developer>
+    </developers>
+    <contributors>
+        <contributor>
+            <name>Sean A. McKenna</name>
+        </contributor>
+        <contributor>
+            <name>Katherine A. Klise</name>
+        </contributor>
+        <contributor>
+            <name>Mark Wilson</name>
+        </contributor>
+        <contributor>
+            <name>Marguerite Sorensen</name>
+        </contributor>
+        <contributor>
+            <name>Laura Cutler</name>
+        </contributor>
+        <contributor>
+            <name>Eric Vugrin</name>
+        </contributor>
+        <contributor>
+            <name>Mark Wunsch</name>
+        </contributor>
+    </contributors>
+    <organization>
+        <name>Sandia National Laboratories</name>
+        <url>http://www.sandia.gov</url>
+    </organization>
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>1.11</version>
+        </dependency>
+        <dependency>
+            <groupId>com.googlecode.json-simple</groupId>
+            <artifactId>json-simple</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-math3</artifactId>
+            <version>3.2</version>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sourceforge.argparse4j</groupId>
+            <artifactId>argparse4j</artifactId>
+            <version>0.4.1</version>
+        </dependency>
+        <dependency>
+            <groupId>gov.sandia.seme</groupId>
+            <artifactId>seme-framework</artifactId>
+            <version>0.9</version>
+        </dependency>
+    </dependencies>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.build.timestamp.format>yyyy-MM-dd</maven.build.timestamp.format>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.copyright>Copyright {inceptionYear}-{currentYear} ${project.organization.name}\n${project.DOEstatement}</project.copyright>
+        <project.DOEstatement>Under the terms of Contract DE-AC04-94AL85000 with Sandia Corporation,\nthe U.S. Government retains certain rights in this software.</project.DOEstatement>
+        <scm.sourceRev>${env.SVN_REVISION}</scm.sourceRev>
+        <ci.buildTag>${env.BUILD_TAG}</ci.buildTag>
+        <ci.buildNumber>${env.BUILD_NUMBER}</ci.buildNumber>
+        <ci.buildUrl>${env.BUILD_URL}</ci.buildUrl>
+        <ci.jobName>${env.JOB_NAME}</ci.jobName>
+        <ci.jenkinsUrl>${env.JENKINS_URL</ci.jenkinsUrl>
+        <project.javadoc.SANDnum>SAND2014-xxxxW</project.javadoc.SANDnum>
+    </properties>
+
+    <scm>
+        <connection>scm:svn:https://software.sandia.gov/svn/teva/canary/canaryeds</connection>
+        <developerConnection>scm:svn:https://software.sandia.gov/svn/teva/canary/canaryeds</developerConnection>
+        <tag>HEAD</tag>
+        <url>https://software.sandia.gov/svn/teva/canary/canaryeds</url>
+    </scm>
+    <prerequisites>
+        <maven>2.2.1</maven>
+    </prerequisites>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.3.2</version>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <formats>
+                        <format>xml</format>
+                    </formats>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.9.1</version>
+                <configuration>
+                    <bottom>Copyright {inceptionYear}-{currentYear} Sandia Corporation. ${project.DOEstatement}. ${project.javadoc.SANDnum}, updated ${maven.build.timestamp}</bottom>
+                    <show>package</show>
+                    <author>false</author>
+                    <version>false</version>
+                    <header>${project.name} version ${project.version}</header>
+                    <docfilessubdirs>true</docfilessubdirs>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.2-beta-5</version>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id> <!-- this is used for inheritance merges -->
+                        <phase>package</phase> <!-- bind to the packaging phase -->
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>		
+
+        </plugins>
+    </build>
+    <modules>
+        <module>canaryeds-base</module>
+    </modules>
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <version>2.16</version>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <formats>
+                        <format>html</format>
+                    </formats>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
+
+</project>

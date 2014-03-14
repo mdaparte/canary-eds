@@ -2,14 +2,21 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>gov.sandia.canaryeds</groupId>
+        <artifactId>gov-sandia-canaryeds</artifactId>
+        <version>5.0</version>
+    </parent>
+
   <groupId>org.teva</groupId>
   <artifactId>CanarysCore</artifactId>
   <version>1.0</version>
   <packaging>jar</packaging>
 
   <name>CanarysCore</name>
-  <url>http://maven.apache.org</url>
-    <build>
+  <url>https://software.sandia.gov/trac/canary</url>
+
+  <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -22,26 +29,5 @@
             </plugin>
         </plugins>
     </build>
-    <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
 
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.yaml</groupId>
-      <artifactId>snakeyaml</artifactId>
-      <version>1.11</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-math3</artifactId>
-      <version>3.2</version>
-    </dependency>
-  </dependencies>
 </project>
