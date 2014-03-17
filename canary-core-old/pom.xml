@@ -14,7 +14,6 @@
   <packaging>jar</packaging>
 
   <name>CanarysCore</name>
-  <url>https://software.sandia.gov/trac/canary</url>
 
   <build>
         <plugins>
