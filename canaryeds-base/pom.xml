@@ -27,4 +27,30 @@
         <canaryeds.buildNumber>Build ${env.BUILD_ID} ${env.BUILD_TAG}</canaryeds.buildNumber>
     </properties>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <archive>
+                        <manifestSections>
+                            <manifestSection>
+                                <name>Debug-Details</name>
+                                <manifestEntries>
+                                    <SCM-Source-Revision>${scm.sourceRev}</SCM-Source-Revision>
+                                    <CI-Build-Tag>${ci.buildTag}</CI-Build-Tag>
+                                    <CI-Build-Number>${ci.buildNumber}</CI-Build-Number>
+                                    <CI-Build-Url>${ci.buildUrl}</CI-Build-Url>
+                                    <CI-Job-Name>${ci.jobName}</CI-Job-Name>
+                                </manifestEntries>
+                            </manifestSection>
+                        </manifestSections>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>
