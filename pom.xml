@@ -111,10 +111,10 @@
     </properties>
 
     <scm>
-        <connection>scm:svn:https://software.sandia.gov/svn/teva/canary/canaryeds</connection>
-        <developerConnection>scm:svn:https://software.sandia.gov/svn/teva/canary/canaryeds</developerConnection>
+        <connection>scm:svn:https://software.sandia.gov/svn/teva/canary</connection>
+        <developerConnection>scm:svn:https://software.sandia.gov/svn/teva/canary</developerConnection>
         <tag>HEAD</tag>
-        <url>https://software.sandia.gov/svn/teva/canary/canaryeds</url>
+        <url>https://software.sandia.gov/svn/teva/canary</url>
     </scm>
     <prerequisites>
         <maven>2.2.1</maven>
@@ -171,33 +171,54 @@
                     </archive>
                 </configuration>
             </plugin>
-            <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>2.2-beta-5</version>
-                <configuration>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>make-assembly</id> <!-- this is used for inheritance merges -->
-                        <phase>package</phase> <!-- bind to the packaging phase -->
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>		
-
         </plugins>
     </build>
     <modules>
         <module>canaryeds-base</module>
         <module>canary-core-old</module>
+        <module>canaryeds-program</module>
     </modules>
     <reporting>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>2.6</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.9</version>
+                <configuration>
+                    <linksource>true</linksource>
+                    <bottom>Copyright {inceptionYear}-{currentYear} Sandia Corporation. ${project.DOEstatement}. ${project.javadoc.SANDnum}, updated ${maven.build.timestamp}</bottom>
+                    <show>package</show>
+                    <author>false</author>
+                    <version>false</version>
+                    <header>${project.name} version ${project.version}</header>
+                    <docfilessubdirs>true</docfilessubdirs>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                        </manifest>
+                    </archive>
+                </configuration>
+                <reportSets>
+                    <reportSet><!-- by default, id = "default" -->
+                        <reports><!-- select non-aggregate reports -->
+                            <report>javadoc</report>
+                        </reports>
+                    </reportSet>
+                    <reportSet><!-- aggregate reportSet, to define in poms having modules -->
+                        <id>aggregate</id>
+                        <inherited>false</inherited><!-- don't run aggregate in child modules -->
+                        <reports>
+                            <report>aggregate</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>            
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-report-plugin</artifactId>
