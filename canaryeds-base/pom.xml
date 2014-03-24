@@ -52,5 +52,11 @@
             </plugin>
         </plugins>
     </build>
-
+    <dependencies>
+        <dependency>
+            <groupId>gov.sandia.seme</groupId>
+            <artifactId>seme-framework</artifactId>
+            <version>1.0</version>
+        </dependency>
+    </dependencies>
 </project>
