@@ -16,6 +16,7 @@
         <module>canaryeds-base</module>
         <module>canary-core-old</module>
         <module>canaryeds-program</module>
+        <module>seme-framework-1.0</module>
     </modules>
     <licenses>
         <license>
