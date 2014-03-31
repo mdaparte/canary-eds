@@ -78,6 +78,9 @@ import org.yaml.snakeyaml.representer.Representer;
  *
  * @test Tested in CANARYTest#testShortLPCF. Runs a full test on the configuration
  *
+ * @remarks The following features are not fully implemented in the beta release.
+ * @li 
+ * 
  * @htmlonly
  * @author dbhart
  * @author $LastChangedBy$
@@ -218,8 +221,7 @@ public final class CANARY extends Engine implements Serializable {
      * @param config configuration dictionary (probably from a file)
      * @throws ConfigurationException there are errors in the configuration
      */
-    public void configure(HashMap config)
-            throws ConfigurationException {
+    public void configure(HashMap config) throws ConfigurationException {
         super.setComponentFactory(new EDSComponents());
         HashMap v5config;
         if (config.containsKey("monitoring stations")
@@ -333,13 +335,17 @@ public final class CANARY extends Engine implements Serializable {
                  *
                  */
                 for (Iterator it = myChannels.iterator(); it.hasNext();) {
-                    Object ch = it.next();
+                    String ch = (String) it.next();
                     if (ch != null) {
                         /*
                          * Set the fact that I consume this channel, and tell
                          * its descriptor that it is used.
                          */
                         Descriptor myChannel = descDataChannels.get(ch);
+                        if (myChannel == null) {
+                            LOG.warn("Trying to add non-existant data channel '"+ch+"'!");
+                            continue;
+                        }
                         stnDesc.addToConsumesTags(myChannel.getTag());
                         stnDesc.addToRequiresComponents(myChannel);
                         myChannel.setUsed(true);

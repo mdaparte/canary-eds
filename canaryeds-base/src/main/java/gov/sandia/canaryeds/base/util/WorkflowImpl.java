@@ -78,16 +78,27 @@ public abstract class WorkflowImpl implements Workflow {
     protected final HashMap<String, Object> metaData = new HashMap();
 
     public WorkflowImpl() {
-        this.sz_historyWindow = 10;
-        this.outlierThreshold = 1.2;
-        this.eventThreshold = 0.9;
-        this.sz_eventTimeout = 50;
-        this.sz_eventWindowSave = 60;
-        this.sz_bedWindow = 10;
+        this.sz_historyWindow = -10;
+        this.outlierThreshold = -1.0;
+        this.eventThreshold = -1.0;
+        this.sz_eventTimeout = -10;
+        this.sz_eventWindowSave = -10;
+        this.sz_bedWindow = -10;
         this.bedOutlierProbability = 0.5;
         this.channels = new ArrayList<>();
     }
 
+    public boolean checkParams() {
+        boolean allOkay = true;
+        if (this.sz_historyWindow <= 0) { LOG.fatal("history window was not specified!"); allOkay = false;}
+        if (this.outlierThreshold <= 0) { LOG.fatal("outlier threshold was not specified!"); allOkay = false;}
+        if (this.eventThreshold <= 0) { LOG.fatal("event threshold was not specified!"); allOkay = false;}
+        if (this.sz_eventTimeout <= 0) { LOG.fatal("event timeout window was not specified!"); allOkay = false;}
+        if (this.sz_eventWindowSave <= 0) { LOG.fatal("event window save was not specified!"); allOkay = false;}
+        if (this.sz_bedWindow  <= 0) { LOG.fatal("BED history window was not specified!"); allOkay = false;}
+        return allOkay;
+    }
+    
     @Override
     public void addChannel(DataChannel channel) {
         ChannelUsage usageType = (ChannelUsage) channel.getOpt("usageType");

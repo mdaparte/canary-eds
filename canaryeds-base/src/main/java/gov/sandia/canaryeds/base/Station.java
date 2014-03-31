@@ -34,6 +34,7 @@ import static java.lang.Math.max;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.logging.Level;
 import org.apache.log4j.Logger;
 
 /**
@@ -159,7 +160,7 @@ public final class Station extends MessagableImpl implements ModelConnection {
     /**
      * The station's event detection workflows.
      */
-    protected Workflow workflow;
+    protected Workflow workflow = null;
 
     public Station(String label, int d) {
         super(label, d);
@@ -219,6 +220,10 @@ public final class Station extends MessagableImpl implements ModelConnection {
     public final void initialize() throws InitializationException {
         Descriptor conf = configDesc;
         int maxWinSize = 50;
+        if (conf.getRequiresComponents() == null ||
+                conf.getRequiresComponents().isEmpty()) {
+            throw new InitializationException("Failed to configure station "+this.name+", no data channels or workflows/algorithms supplied.");
+        }
         for (Descriptor reqd : conf.getRequiresComponents()) {
             switch (reqd.getType().toString()) {
                 case "SUBCOMPONENT":
@@ -230,10 +235,14 @@ public final class Station extends MessagableImpl implements ModelConnection {
                                 reqd);
                         maxWinSize = max(maxWinSize,
                                 workflow.getMaxWindowNeeded());
-                    } catch (ConfigurationException | InvalidComponentClassException ex) {
+                    } catch (ConfigurationException ex) {
                         LOG.fatal("error adding Workflow", ex);
+                        throw new InitializationException("Workflow could not be configured: "+ex.getMessage());
+                    } catch (InvalidComponentClassException ex) {
+                        LOG.fatal("error adding Workflow", ex);
+                        throw new InitializationException(ex.getMessage());
                     }// endof try
-                    break;// endof case(WORKFLOW)
+                    break;// endof case(WORKFLOW)// endof case(WORKFLOW)
             }
         }
         for (Descriptor reqd : conf.getRequiresComponents()) {
@@ -252,6 +261,7 @@ public final class Station extends MessagableImpl implements ModelConnection {
                         //notConsumedYet.remove(chanTag);
                     } catch (InvalidComponentClassException ex) {
                         LOG.fatal("error adding DataChannel", ex);
+                        throw new InitializationException(ex.getMessage());
                     }// endof try
                     break;// endof case(CHANNEL)
             }// endof switch(descriptor.type)

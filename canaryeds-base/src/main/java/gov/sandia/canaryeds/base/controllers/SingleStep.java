@@ -25,6 +25,7 @@ import gov.sandia.seme.framework.Descriptor;
 import gov.sandia.seme.framework.Step;
 import gov.sandia.seme.framework.ConfigurationException;
 import gov.sandia.seme.util.ControllerImpl;
+import gov.sandia.seme.util.DateTimeStep;
 import org.apache.log4j.Logger;
 
 /**
@@ -93,11 +94,12 @@ public class SingleStep extends ControllerImpl {
         }
         curIndex += 1;
         Class c = stepBase.getClass();
-        Step batchStep = null;
+        Step batchStep;
         try {
             batchStep = (Step) c.newInstance();
         } catch (InstantiationException | IllegalAccessException ex) {
             LOG.fatal("Failed to create new Step of type " + c.getName());
+            batchStep = new DateTimeStep();
         }
         batchStep.setOrigin(stepBase.getOrigin());
         batchStep.setStepSize(stepBase.getStepSize());

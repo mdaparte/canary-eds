@@ -32,6 +32,7 @@ import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -68,31 +69,15 @@ public class CANARYTest {
     }
 
     /**
-     * Test of CANARY#configure method.
-     */
-    @Test
-    public void testConfigure() {
-        try {
-            CANARY eds = new CANARY();
-            InputStream is = v5mvnn.openStream();
-            HashMap config = eds.parseYAMLStream(is);
-            HashMap stationB_In = (HashMap) ((Map) ((Map) config.get(
-                    "connections")).get("stationb_in")).get("text.CSVReaderWide");
-            stationB_In.put("location", stationCSV);
-            eds.configure(config);
-        } catch (ConfigurationException | IOException ex) {
-            fail("The test caused an exception: " + ex.getMessage());
-        }
-    }
-
-    /**
      * Tests the CANARY class and the workflows.MVNN_BED class.
      */
     @Test
     public void testShortMVNN() {
+        String testName = "testShortMVNN";
         try {
+            System.out.println("--- "+testName+" ---");
             CANARY eds = new CANARY();
-            InputStream is = v5mvnn.openStream();
+            InputStream is = CANARYTest.class.getResource("/gov/sandia/canaryeds/"+testName+".yml").openStream();
             HashMap config = eds.parseYAMLStream(is);
             HashMap stationB_In = (HashMap) ((Map) ((Map) config.get(
                     "connections")).get("stationb_in")).get("text.CSVReaderWide");
@@ -112,9 +97,124 @@ public class CANARYTest {
      */
     @Test
     public void testShortLPCF() {
+        String testName = "testShortLPCF";
         try {
+            System.out.println("--- "+testName+" ---");
             CANARY eds = new CANARY();
-            InputStream is = v5lpcf.openStream();
+            InputStream is = CANARYTest.class.getResource("/gov/sandia/canaryeds/"+testName+".yml").openStream();
+            HashMap config = eds.parseYAMLStream(is);
+            HashMap stationB_In = (HashMap) ((Map) ((Map) config.get(
+                    "connections")).get("stationb_in")).get("text.CSVReaderWide");
+            stationB_In.put("location", stationCSV);
+            eds.configure(config);
+            eds.initialize();
+            Controller ctrl = eds.getController();
+            ctrl.run();
+            eds.shutdown();
+        } catch (InitializationException | ConfigurationException | IOException ex) {
+            fail("The test caused an exception: " + ex.getMessage());
+        }
+    }
+
+    @Test
+    public void testNoBED() {
+        String testName = "testNoBED";
+        try {
+            System.out.println("--- "+testName+" ---");
+            CANARY eds = new CANARY();
+            InputStream is = CANARYTest.class.getResource("/gov/sandia/canaryeds/"+testName+".yml").openStream();
+            HashMap config = eds.parseYAMLStream(is);
+            HashMap stationB_In = (HashMap) ((Map) ((Map) config.get(
+                    "connections")).get("stationb_in")).get("text.CSVReaderWide");
+            stationB_In.put("location", stationCSV);
+            eds.configure(config);
+            eds.initialize();
+            Controller ctrl = eds.getController();
+            ctrl.run();
+            eds.shutdown();
+        } catch (InitializationException ex) {
+            assertEquals("Workflow could not be configured: Failed to configure the workflow!",ex.getMessage());
+        } catch (ConfigurationException | IOException ex) {
+            fail("The test caused an exception: " + ex.getMessage());
+        }
+    }
+    
+    @Test
+    public void testMixedWorkflowTypes() {
+        String testName = "testMixedWorkflowTypes";
+        try {
+            System.out.println("--- "+testName+" ---");
+            CANARY eds = new CANARY();
+            InputStream is = CANARYTest.class.getResource("/gov/sandia/canaryeds/"+testName+".yml").openStream();
+            HashMap config = eds.parseYAMLStream(is);
+            HashMap stationB_In = (HashMap) ((Map) ((Map) config.get(
+                    "connections")).get("stationb_in")).get("text.CSVReaderWide");
+            stationB_In.put("location", stationCSV);
+            eds.configure(config);
+            eds.initialize();
+            Controller ctrl = eds.getController();
+            ctrl.run();
+            eds.shutdown();
+        } catch (InitializationException | ConfigurationException | IOException ex) {
+            fail("The test caused an exception: " + ex.getMessage());
+        }
+    }
+
+    @Test
+    public void testMissingWorkflowOptions() {
+        String testName = "testMissingWorkflowOptions";
+        try {
+            System.out.println("--- "+testName+" ---");
+            CANARY eds = new CANARY();
+            InputStream is = CANARYTest.class.getResource("/gov/sandia/canaryeds/"+testName+".yml").openStream();
+            HashMap config = eds.parseYAMLStream(is);
+            HashMap stationB_In = (HashMap) ((Map) ((Map) config.get(
+                    "connections")).get("stationb_in")).get("text.CSVReaderWide");
+            stationB_In.put("location", stationCSV);
+            eds.configure(config);
+            eds.initialize();
+            Controller ctrl = eds.getController();
+            ctrl.run();
+            eds.shutdown();
+        } catch (InitializationException ex) {
+            assertEquals("Workflow could not be configured: Failed to configure the workflow!",ex.getMessage());
+        } catch (ConfigurationException | IOException ex) {
+            fail("The test caused an exception: " + ex.getMessage());
+        }
+    }
+
+    
+    @Test
+    public void testMissingWorkflow() {
+        String testName = "testMissingWorkflow";
+        try {
+            System.out.println("--- "+testName+" ---");
+            CANARY eds = new CANARY();
+            InputStream is = CANARYTest.class.getResource("/gov/sandia/canaryeds/"+testName+".yml").openStream();
+            HashMap config = eds.parseYAMLStream(is);
+            HashMap stationB_In = (HashMap) ((Map) ((Map) config.get(
+                    "connections")).get("stationb_in")).get("text.CSVReaderWide");
+            stationB_In.put("location", stationCSV);
+            eds.configure(config);
+            eds.initialize();
+            Controller ctrl = eds.getController();
+            ctrl.run();
+            eds.shutdown();
+        } catch (ConfigurationException ex) {
+            assertEquals("Trying to configure a non-existant workflow!",ex.getMessage());
+        } catch (InitializationException | IOException ex) {
+            fail("The test caused an exception: " + ex.getMessage());
+        }
+    }
+
+    
+    @Test
+    public void testWrongSignal() {
+        String testName = "testWrongSignal";
+        try {
+            System.out.println("--- "+testName+" ---");
+            CANARY eds = new CANARY();
+            InputStream is = CANARYTest.class.getResource("/gov/sandia/canaryeds/"+testName+".yml").openStream();
             HashMap config = eds.parseYAMLStream(is);
             HashMap stationB_In = (HashMap) ((Map) ((Map) config.get(
                     "connections")).get("stationb_in")).get("text.CSVReaderWide");

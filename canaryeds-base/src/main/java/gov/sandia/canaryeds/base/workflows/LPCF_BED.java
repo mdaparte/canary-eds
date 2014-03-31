@@ -125,38 +125,45 @@ public class LPCF_BED extends WorkflowImpl {
             String key = ((String) k).toLowerCase();
             int tempInt;
             double tempDouble;
+            if (opts.get(k) == null) {
+                LOG.warn("Configuration Error - key '"+k.toString()+"' is null.");
+                continue;
+            }
             switch (key) {
                 case "history window":
-                    tempInt = (Integer) opts.get(k);
+                    tempInt = ((Number) opts.get(k)).intValue();
                     this.sz_historyWindow = tempInt;
                     break;
                 case "outlier threshold":
-                    tempDouble = (Double) opts.get(k);
+                    tempDouble = ((Number) opts.get(k)).doubleValue();
                     this.outlierThreshold = tempDouble;
                     break;
                 case "event threshold":
-                    tempDouble = (Double) opts.get(k);
+                    tempDouble = ((Number) opts.get(k)).doubleValue();
                     this.eventThreshold = tempDouble;
                     break;
                 case "event timeout":
-                    tempInt = (Integer) opts.get(k);
+                    tempInt = ((Number) opts.get(k)).intValue();
                     this.sz_eventTimeout = tempInt;
                     break;
                 case "event window save":
-                    tempInt = (Integer) opts.get(k);
+                    tempInt = ((Number) opts.get(k)).intValue();
                     this.sz_eventWindowSave = tempInt;
                     break;
                 case "bed":
                     HashMap hmBED = (HashMap) opts.get(k);
-                    tempInt = (Integer) hmBED.get("window");
-                    tempDouble = (Double) hmBED.get("outlier probability");
+                    tempInt = ((Number) hmBED.get("window")).intValue();
+                    tempDouble = ((Number) hmBED.get("outlier probability")).doubleValue();
                     this.bedOutlierProbability = tempDouble;
                     this.sz_bedWindow = tempInt;
                     break;
                 default:
-                    // LOG WARNING
+                    LOG.warn("Configuration Error - key '"+k.toString()+"' is unrecognized.");
                     break;
             }
+        }
+        if (!this.checkParams()) {
+            throw new ConfigurationException("Failed to configure the workflow!");
         }
     }
 
@@ -341,6 +348,9 @@ public class LPCF_BED extends WorkflowImpl {
     public void initialize() throws InitializationException {
         LOG.debug("Initializing LPCF with BED");
         super.initialize();
+        if (!this.checkParams()) {
+            throw new InitializationException("Failed to configure all options on the workflow!");
+        }        
     }
 
     @Override

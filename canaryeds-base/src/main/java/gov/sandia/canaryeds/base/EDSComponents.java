@@ -308,6 +308,9 @@ public class EDSComponents extends gov.sandia.seme.framework.Components {
         LOG.trace("-> getWorkflowDescriptors");
         String className;
         HashMap<String, Descriptor> hash = new HashMap();
+        if (config == null) {
+            throw new ConfigurationException("Trying to configure a non-existant workflow!");
+        }
         for (Iterator it = config.keySet().iterator(); it.hasNext();) {
             Object k = it.next();
             String id = (String) k;
