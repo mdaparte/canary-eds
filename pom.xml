@@ -94,6 +94,11 @@
             <artifactId>argparse4j</artifactId>
             <version>0.4.1</version>
         </dependency>
+        <dependency>
+            <groupId>gov.sandia.seme</groupId>
+            <artifactId>seme-framework</artifactId>
+            <version>1.0</version>
+        </dependency>
     </dependencies>
 
     <properties>
