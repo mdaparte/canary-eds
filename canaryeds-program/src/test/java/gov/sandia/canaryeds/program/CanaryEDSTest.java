@@ -56,15 +56,8 @@ public class CanaryEDSTest {
     public void testMain() {
         System.out.println("main");
         System.out.println("WORKSPACE="+workspace);
-        String cfgV4mvnn = new File(workspace,"v4config.yml").getAbsolutePath();
         String cfgV5mvnn = new File(workspace,"v5config.yml").getAbsolutePath();
-        String cfgV4lpcf = new File(workspace,"v4lpcf.yml").getAbsolutePath();
-        String cfgV5lpcf = new File(workspace,"v5lpcf.yml").getAbsolutePath();
-        CanaryEDS.main(new String[]{"--nw"});
-        CanaryEDS.main(new String[]{"--nw",cfgV4mvnn});
         CanaryEDS.main(new String[]{"--nw",cfgV5mvnn});
-        CanaryEDS.main(new String[]{"--nw",cfgV4lpcf});
-        CanaryEDS.main(new String[]{"--nw",cfgV5lpcf});
     }
     
 }
