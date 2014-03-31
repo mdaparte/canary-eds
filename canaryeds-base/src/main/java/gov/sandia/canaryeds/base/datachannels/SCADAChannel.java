@@ -157,6 +157,11 @@ public class SCADAChannel implements DataChannel {
         for (Iterator it = options.keySet().iterator(); it.hasNext();) {
             String key = (String) it.next();
             Object val = options.get(key);
+            if (val == null) {
+                LOG.error("No value was provided for SCADAChannel option '"+key+"'");
+                this.metaData.put(key, null);
+                continue;
+            }
             switch (key) {
                 case "name":
                 case "tag":
@@ -166,13 +171,15 @@ public class SCADAChannel implements DataChannel {
                 case "parameter":
                 case "description":
                 case "usage":
+                case "units":
+                    this.metaData.put(key, val.toString());
+                    break;
                 case "setPointHigh":
                 case "setPointLow":
                 case "validRangeHigh":
                 case "validRangeLow":
                 case "precision":
-                case "units":
-                    this.metaData.put(key, val);
+                    this.metaData.put(key, ((Number)val).doubleValue());
                     break;
                 case "usageType":
                 case "usage type":
@@ -187,12 +194,18 @@ public class SCADAChannel implements DataChannel {
                     if (val instanceof Object[]) {
                         this.metaData.put("setPointLow", ((Object[]) val)[0]);
                         this.metaData.put("setPointHigh", ((Object[]) val)[1]);
+                    } else if (val instanceof ArrayList) {
+                        this.metaData.put("setPointLow", ((ArrayList) val).get(0));
+                        this.metaData.put("setPointHigh", ((ArrayList) val).get(1));
                     }
                     break;
                 case "valid range":
                     if (val instanceof Object[]) {
                         this.metaData.put("validRangeLow", ((Object[]) val)[0]);
                         this.metaData.put("validRangeHigh", ((Object[]) val)[1]);
+                    } else if (val instanceof ArrayList) {
+                        this.metaData.put("validRangeLow",  ((ArrayList) val).get(0));
+                        this.metaData.put("validRangeHigh", ((ArrayList) val).get(1));
                     }
                     break;
                 case "frameSize":
@@ -284,6 +297,9 @@ public class SCADAChannel implements DataChannel {
         }
         if (this.metaData.containsKey("validRangeHigh")) {
             this.validRangeHigh = this.getDoubleOpt("validRangeHigh");
+        }
+        if ((setPointLow >= setPointHigh) || (validRangeLow >= validRangeHigh) ) {
+            LOG.fatal("Channel "+this.name+" / "+ this.tag + " has mismatched setPoint or validRange values (low > high)");
         }
     }
 

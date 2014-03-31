@@ -309,6 +309,7 @@ public class EDSComponents extends gov.sandia.seme.framework.Components {
         String className;
         HashMap<String, Descriptor> hash = new HashMap();
         if (config == null) {
+            LOG.fatal("Major error in configuration file: trying to create a non-existant workflow");
             throw new ConfigurationException("Trying to configure a non-existant workflow!");
         }
         for (Iterator it = config.keySet().iterator(); it.hasNext();) {

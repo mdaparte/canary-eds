@@ -30,6 +30,7 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
+import org.apache.log4j.Level;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
@@ -201,6 +202,7 @@ public class CANARYTest {
             ctrl.run();
             eds.shutdown();
         } catch (ConfigurationException ex) {
+            System.out.println(ex.getMessage());
             assertEquals("Trying to configure a non-existant workflow!",ex.getMessage());
         } catch (InitializationException | IOException ex) {
             fail("The test caused an exception: " + ex.getMessage());

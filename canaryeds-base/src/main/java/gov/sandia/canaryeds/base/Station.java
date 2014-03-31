@@ -236,10 +236,10 @@ public final class Station extends MessagableImpl implements ModelConnection {
                         maxWinSize = max(maxWinSize,
                                 workflow.getMaxWindowNeeded());
                     } catch (ConfigurationException ex) {
-                        LOG.fatal("error adding Workflow", ex);
+                        LOG.fatal("error adding Workflow");
                         throw new InitializationException("Workflow could not be configured: "+ex.getMessage());
                     } catch (InvalidComponentClassException ex) {
-                        LOG.fatal("error adding Workflow", ex);
+                        LOG.fatal("error adding Workflow");
                         throw new InitializationException(ex.getMessage());
                     }// endof try
                     break;// endof case(WORKFLOW)// endof case(WORKFLOW)

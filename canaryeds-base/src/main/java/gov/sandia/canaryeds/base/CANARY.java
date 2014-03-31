@@ -59,10 +59,10 @@ import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
 import org.yaml.snakeyaml.representer.Representer;
 
-/** 
+/**
  * @if doxyDev
  * @page devCanaryLibrary Using CANARY-EDS as a Library
- * 
+ *
  * @endif
  */
 /**
@@ -73,14 +73,16 @@ import org.yaml.snakeyaml.representer.Representer;
  * Connectors, and the Router. Even the Controller object should use the CANARY
  * object to make its calls.
  *
- * @test Tested in CANARYTest#testShortMVNN. Runs a full test on the configuration
- * file.
+ * @test Tested in CANARYTest#testShortMVNN. Runs a full test on the
+ * configuration file.
  *
- * @test Tested in CANARYTest#testShortLPCF. Runs a full test on the configuration
+ * @test Tested in CANARYTest#testShortLPCF. Runs a full test on the
+ * configuration
  *
- * @remarks The following features are not fully implemented in the beta release.
- * @li 
- * 
+ * @remarks The following features are not fully implemented in the beta
+ * release.
+ * @li
+ *
  * @htmlonly
  * @author dbhart
  * @author $LastChangedBy$
@@ -97,6 +99,7 @@ public final class CANARY extends Engine implements Serializable {
     /**
      * Adds arguments to an ArgumentParser that are CANARY-EDS specific. Adds
      * the following options to a command-line argument parser:
+     *
      * @li <tt>-\-verbose, -v </tt> increase log level
      * @li <tt>-\-quiet, -q </tt> decrease log level
      * @li <tt>-\-nw </tt> run without GUI
@@ -139,6 +142,7 @@ public final class CANARY extends Engine implements Serializable {
                         messages.getString("application.copyright"));
         return parser;
     }
+
     /**
      * Parse arguments --quiet and --verbose to set the log level
      *
@@ -190,10 +194,14 @@ public final class CANARY extends Engine implements Serializable {
                 eLevel = (Level.OFF);
                 break;
         }
-        Logger.getRootLogger().setLevel(eLevel);
+        this.setLogLevel(eLevel);
         return eLevel;
     }
-    
+
+    public void setLogLevel(Level level) {
+        Logger.getRootLogger().setLevel(level);
+    }
+
     public CANARY() {
         super();
         super.setComponentFactory(new EDSComponents());
@@ -203,15 +211,13 @@ public final class CANARY extends Engine implements Serializable {
      * Configures CANARY-EDS using a HashMap of configuration options. Parses
      * the options and creates the appropriate Descriptors. These descriptors
      * are used by the #initialize method.
-     * @internal
-     * \begin{algorithmic}[0]
-     * \Procedure{configure}{$config$}\Comment{configure from a HashMap}
-     * \If{old format}
-     * \State $config \gets $ \Call{convertV4toV5}{$config$}
-     * \EndIf
-     * \State $descControllers \gets $ \Call{getControllerDescriptors}{$config \ni$ controllers}
-     * \State $descConnections \gets $ \Call{getConnectionDescriptors}{$config \ni$ connections}
-     * \EndProcedure
+     *
+     * @internal \begin{algorithmic}[0]
+     * \Procedure{configure}{$config$}\Comment{configure from a HashMap} \If{old
+     * format} \State $config \gets $ \Call{convertV4toV5}{$config$} \EndIf
+     * \State $descControllers \gets $ \Call{getControllerDescriptors}{$config
+     * \ni$ controllers} \State $descConnections \gets $
+     * \Call{getConnectionDescriptors}{$config \ni$ connections} \EndProcedure
      * \end{algorithmic}
      * @endinternal
      *
@@ -242,12 +248,27 @@ public final class CANARY extends Engine implements Serializable {
          * that can be better used for factories and passing around.
          */
         Components factory = this.getComponentFactory();
-        descControllers = factory.getControllerDescriptors(
-                (HashMap) v5config.get("controllers"));
-        descMessagables = factory.getConnectionDescriptors(
-                (HashMap) v5config.get("connections"));
-        descDataChannels = factory.getChannelDescriptors((HashMap) v5config.get(
-                "data channels"));
+        try {
+            descControllers = factory.getControllerDescriptors(
+                    (HashMap) v5config.get("controllers"));
+        } catch (ConfigurationException ex) {
+            LOG.fatal("Error in configuration file - 'controllers' section is badly formed.");
+            throw ex;
+        }
+        try {
+            descMessagables = factory.getConnectionDescriptors(
+                    (HashMap) v5config.get("connections"));
+        } catch (ConfigurationException ex) {
+            LOG.fatal("Error in configuration file - 'connections' section is badly formed.");
+            throw ex;
+        }
+        try {
+            descDataChannels = factory.getChannelDescriptors((HashMap) v5config.get(
+                    "data channels"));
+        } catch (ConfigurationException ex) {
+            LOG.fatal("Error in configuration file - 'data channels' section is badly formed.");
+            throw ex;
+        }
 //        descSubComponents = factory.getWorkflowDescriptors(
 //                (HashMap) v5config.get("workflows"), "WORKFLOW");
 //        descMessagables.putAll(factory.getConnectionDescriptors(
@@ -343,7 +364,7 @@ public final class CANARY extends Engine implements Serializable {
                          */
                         Descriptor myChannel = descDataChannels.get(ch);
                         if (myChannel == null) {
-                            LOG.warn("Trying to add non-existant data channel '"+ch+"'!");
+                            LOG.warn("Trying to add non-existant data channel '" + ch + "'!");
                             continue;
                         }
                         stnDesc.addToConsumesTags(myChannel.getTag());
@@ -432,11 +453,14 @@ public final class CANARY extends Engine implements Serializable {
             controller.setEngine(this);
         } catch (InvalidComponentClassException ex) {
             LOG.fatal("error creating controller " + usedControllerName, ex);
-            throw new InitializationException(
-                    "Fatal error in configuration; controller initialization failed.");
+            InitializationException ex2 = new InitializationException("Fatal error in configuration; controller initialization failed.");
+            ex2.addSuppressed(ex);
+            throw ex2;
         } catch (NullPointerException ex) {
             LOG.fatal("failed to register name of controller to be used");
-            throw ex;
+            InitializationException ex2 = new InitializationException("Fatal error in configuration - are you missing a 'controllers' section?");
+            ex2.addSuppressed(ex);
+            throw ex2;
         }
         this.workerService = Executors.newFixedThreadPool(maxThreads);
         LOG.debug("Created controllers");
@@ -455,9 +479,10 @@ public final class CANARY extends Engine implements Serializable {
                 router.register(conn);
                 LOG.trace("added Messagable(" + conn.toString() + ")");
             } catch (InvalidComponentClassException ex) {
-                LOG.fatal("error creating Messagable (" + connName + ")", ex);
-                throw new InitializationException(
-                        "Fatal error in configuration; controller initialization failed.");
+                LOG.fatal("error creating Messagable (" + connName + ")");
+                InitializationException ex2 = new InitializationException("Fatal error in configuration; controller initialization failed.");
+                ex2.addSuppressed(ex);
+                throw ex2;
             } catch (RouterRegistrationException ex) {
                 LOG.error("Registration error: ", ex);
             }
@@ -472,7 +497,8 @@ public final class CANARY extends Engine implements Serializable {
      *
      * @param configfile name of the configuration file
      * @return mapping of the configuration parameters
-     * @throws ConfigurationException there are errors with the configuration file
+     * @throws ConfigurationException there are errors with the configuration
+     * file
      */
     public HashMap parseConfigFile(String configfile)
             throws ConfigurationException {
@@ -557,6 +583,7 @@ public final class CANARY extends Engine implements Serializable {
 
     /**
      * Write output summary files for each of the monitoring stations in a list.
+     *
      * @param stations an CopyOnWriteArrayList<ModelConnection> of stations
      */
     public static void outputEventSummaries(
