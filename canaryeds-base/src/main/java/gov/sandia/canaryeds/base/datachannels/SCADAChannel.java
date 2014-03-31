@@ -39,14 +39,14 @@ import org.apache.log4j.Logger;
 /**
  * @if doxyUser
  * @page userSCADAChannel Configuration Details: Using datachannels.SCADAChannel
- * 
+ *
  * @endif
  */
 /**
  * Provides a simple value-based data channel. This type of data channel
  * provides real-number values which are used in event detection, or in pattern
- * recognition algorithms, or which are inputs to composite
- * channels. Simple values come with the following options:
+ * recognition algorithms, or which are inputs to composite channels. Simple
+ * values come with the following options:
  *
  * <b>Set points:</b> provide a range of values which are acceptable; when a
  * value falls outside the set-points, checking the status of this channel will
@@ -96,6 +96,7 @@ public class SCADAChannel implements DataChannel {
         this.requires = new ArrayList();
         this.linkedChannels = new ArrayList();
         this.dataFrameSize = 100;
+        this.metaData.put("precision", 0.0001);
     }
 
     @Override
@@ -195,14 +196,14 @@ public class SCADAChannel implements DataChannel {
                     }
                     break;
                 case "frameSize":
-                    this.dataFrameSize = (int) options.get(key);
+                    this.dataFrameSize = (int) ((Number) options.get(key)).intValue();
                     break;
                 case "newDataStyle":
                     this.setNewDataStyle((MissingDataPolicy) options.get(key));
                     break;
                 case "value when active":
                 case "valueForAbnormalStatus":
-                    this.almAbnormal = (Integer) val;
+                    this.almAbnormal = (int) ((Number) val).intValue();
                     break;
                 default:
                     this.metaData.put(key, val);
@@ -260,6 +261,7 @@ public class SCADAChannel implements DataChannel {
                 this.setOpt("usageType", this.usage);
             } else {
                 this.usage = ChannelUsage.QUALITY;
+                LOG.warn("Channel type not specified; setting to QUALITY and continuing.");
                 this.setOpt("usageType", ChannelUsage.QUALITY);
             }
         }
@@ -343,6 +345,7 @@ public class SCADAChannel implements DataChannel {
 
     /**
      * Sets the MissingDataPolicy for this channel.
+     *
      * @param style the new value of style
      */
     @Override
