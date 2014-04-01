@@ -15,7 +15,6 @@
         <module>seme-framework-1.0</module>
         <module>canaryeds-external-eddies</module>
     </modules>
-    <inceptionYear>2007</inceptionYear>
     <licenses>
         <license>
             <name>The Apache License, Version 2.0</name>
