@@ -19,22 +19,16 @@ import gov.sandia.seme.framework.Descriptor;
 import gov.sandia.seme.util.ControllerImpl;
 
 /**
+ * Dummy implementation to incorporate into canaryeds-program Jar file.
  * @author dbhart
  */
 public class EDDIESController extends ControllerImpl {
 
-    /**
-     *
-     * @return
-     */
     @Override
     public Descriptor getConfiguration() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    /**
-     *
-     */
     @Override
     public void loadState() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -45,9 +39,6 @@ public class EDDIESController extends ControllerImpl {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    /**
-     *
-     */
     @Override
     public void saveState() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

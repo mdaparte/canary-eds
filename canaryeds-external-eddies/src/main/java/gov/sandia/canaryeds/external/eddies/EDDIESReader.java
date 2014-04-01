@@ -16,9 +16,44 @@
 
 package gov.sandia.canaryeds.external.eddies;
 
+import gov.sandia.seme.framework.InputConnection;
+import gov.sandia.seme.framework.Step;
+import gov.sandia.seme.util.MessagableImpl;
+
 /**
+ * Dummy implementation to incorporate into canaryeds-program Jar file.
  * @author dbhart
  */
-public class EDDIESReader {
+public class EDDIESReader extends MessagableImpl implements InputConnection  {
+
+    @Override
+    public int readInputAndProduceMessages() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int readInputAndProduceMessages(Step stepPar) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean isInputConstrainedToCurrentStep() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setInputConstrainedToCurrentStep(boolean contrain) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getSourceLocation() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setSourceLocation(String location) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
 }

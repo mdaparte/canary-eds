@@ -16,9 +16,44 @@
 
 package gov.sandia.canaryeds.external.eddies;
 
+import gov.sandia.seme.framework.OutputConnection;
+import gov.sandia.seme.framework.Step;
+import gov.sandia.seme.util.MessagableImpl;
+
 /**
+ * Dummy implementation to incorporate into canaryeds-program Jar file.
  * @author dbhart
  */
-public class EDDIESWriter {
+public class EDDIESWriter extends MessagableImpl implements OutputConnection {
+
+    @Override
+    public int consumeMessagesAndWriteOutput() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int consumeMessagesAndWriteOutput(Step stepPar) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean isOutputConstrainedToCurrentStep() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setOutputConstrainedToCurrentStep(boolean constrain) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getDestinationLocation() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setDestinationLocation(String location) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
 }
