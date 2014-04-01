@@ -8,6 +8,7 @@
     <description>Event detection software for water infrastructure security</description>
     <inceptionYear>2007</inceptionYear>
     <modules>
+        <module>canary-core-old</module>
         <module>canaryeds-base</module>
         <module>canaryeds-program</module>
         <module>seme-framework-1.0</module>
