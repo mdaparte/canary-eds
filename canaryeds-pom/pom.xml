@@ -4,7 +4,7 @@
     <artifactId>gov-sandia-canaryeds</artifactId>
     <packaging>pom</packaging>
     <version>5.0</version>
-    <name>CANARY-EDS</name>
+    <name>gov-sandia-canaryeds</name>
     <description>Event detection software for water infrastructure security</description>
     <inceptionYear>2007</inceptionYear>
     <licenses>
