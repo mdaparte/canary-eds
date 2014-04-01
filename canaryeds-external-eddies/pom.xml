@@ -7,11 +7,10 @@
     <artifactId>gov-sandia-canaryeds</artifactId>
     <version>5.0</version>
   </parent>
-  <groupId>gov.sandia</groupId>
+  <groupId>gov.sandia.canaryeds</groupId>
   <artifactId>canaryeds-external-eddies</artifactId>
   <version>1.0-SNAPSHOT</version>
   <name>canaryeds-external-eddies</name>
-  <url>http://maven.apache.org</url>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
