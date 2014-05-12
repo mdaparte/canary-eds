@@ -28,7 +28,6 @@ import gov.sandia.seme.framework.Descriptor;
 import gov.sandia.seme.framework.Messagable;
 import gov.sandia.seme.framework.ConfigurationException;
 import gov.sandia.seme.framework.InvalidComponentClassException;
-import gov.sandia.seme.util.ControllerImpl;
 import java.util.HashMap;
 import java.util.Iterator;
 import org.apache.log4j.Logger;

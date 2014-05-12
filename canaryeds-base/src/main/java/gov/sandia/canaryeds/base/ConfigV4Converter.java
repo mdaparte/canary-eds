@@ -294,7 +294,7 @@ public class ConfigV4Converter {
                 className = "text.CSVWriter";
             } else if (oldType.equalsIgnoreCase("DB")
                     || oldType.equalsIgnoreCase("JDBC")) {
-                className = "Database";
+                className = "database.TableReader";
             } else if (oldType.equalsIgnoreCase("EDDIES")) {
                 className = "EDDIES";
             } else if (oldType.equalsIgnoreCase("XML")) {
