@@ -1,0 +1,82 @@
+Résumé
+======
+David B. Hart <dbhart@sandia.gov>
+v1.0, 2014-May
+:numbered!:
+
+Sandia National Laboratories
+----------------------------
+*Geoscience Research and Applications Group* +
+*May, 2002 thru present*
+
+.Water Security Programs
+I was the software developer for the CANARY-EDS (event detection system) software, which is used for detection of possible contamination incidents within water distribution networks. The software received an R&D 100 award in 2010, and is deployed in the United States and Singapore, with several more utilities evaluating its use. The collaboration between our team and our funding agency, the US EPA, on CANARY resulted in a Federal Laboratory Consortium (FLC) award for inter-agency collaboration in 2011. 
+I have been one of the lead technical staff on the two water security projects with Singapore. This has involved many trips to visit the customer in Singapore, where I was able to work at their facilities to better understand their needs and constraints. I have led several training sessions on our software on site. 
+In November 2012, I became project lead for the project after our senior scientist took another job, and after a successful delivery, our customer has asked me to keep the project open and engage them with discussions on how we can do more work with them.
+With our sponsors at the US EPA we are developing an industry working group to enhance CANARY-EDS features and help companies integrate CANARY into their own software. This has involved discussions with industry partners and negotiations regarding requirements and specifications for a new version of CANARY, and I am leading the team of software developers upgrading the software.
+
+.Waste Isolation Pilot Plant (WIPP) Model Development
+I worked extensively on the 2004-2009 model development, analysis, and the formal peer review, for the groundwater conceptual model for the WIPP site. This involved large-scale inverse calibration of transmissivity fields used in the performance assessment needed for recertification of the WIPP by the US EPA. I wrote the analysis report for the calibration tasks, and the resulting fields were used in both the 2009 and the current recertification packages; because of the successful peer review and detailed report, this is the first recertification that did not require regeneration of the transmissivity fields. The peer review took place over four days, during which I presented several times on several days, answering questions from the reviewers at the public sessions. I also assisted in drafting the written responses. The final report of the peer review can be found at the US DOE website, "Burgess, et al., 'Culebra Hydrogeology Conceptual Model Peer Review Final Report', US Department of Energy, Carlsbad, NM, ERMS 551513 (2008)."
+
+.Molecular Modeling 
+I have worked with the geochemistry molecular modeling group studying ion adsorption on clays and minerals, and gas adsorption in metal-organic frameworks (MOFs). I have developed analysis tools and techniques used by the group. I have also done preparation and analysis of the molecular simulations, and coauthored papers and presentations regarding this modeling work. 
+
+.Other Software Development
+I have contributed to software development efforts on other projects supporting climate modeling, the Strategic Petroleum Reserve (SPR), and water resource and infrastructure management.
+
+Awards
+------
+- Federal Laboratory Consortium (FLC) Interagency Partnership Award Winner (2011) for the CANARY software.
+- R&D 100 Award Winner (2010) for the CANARY software.
+
+
+Education
+---------
+
+
+Publications
+------------
+[bibliography]
+.Journal Articles and Book Chapters
+- [[YHM13]] Yoon, H, DB Hart, and SA McKenna. "Parameter Estimation and Predictive Uncertainty in Stochastic Inverse Modeling of Groundwater Flow: Comparing Null-Space Monte Carlo and Multiple Starting Point Methods." 'Water Resources Research' 49, no. 1 (2013): 536-53.
+- [[YHM12]] McKenna, SA, ED Vugrin, DB Hart, and R Aumer. "Multivariate Trajectory Clustering for False Positive Reduction in Online Event Detection." 'Journal of Water Resources Planning and Management' 139, no. 1 (2012): 3-12.
+- [[GHO12]] Greathouse, JA, DB Hart, and ME Ochs. "Alcohol and Thiol Adsorption on (Oxy) Hydroxide and Carbon Surfaces: Molecular Dynamics Simulation and Desorption Experiments." 'The Journal of Physical Chemistry C' 116, no. 51 (2012): 26756-64.
+- [[MHM11]] McKenna, Sean A, David B Hart, Regan Murray, and Terra Haxton. "Testing and Evaluation of Water Quality Event Detection Algorithms." In 'Handbook of Water and Wastewater Systems Protection', 369-96: Springer New York, 2011.
+- [[AHR11]] Alam, TM, D Hart, and SLB Rempe. "Computing the 7 Li Nmr Chemical Shielding of Hydrated Li+ Using Cluster Calculations and Time-Averaged Configurations from Ab Initio Molecular Dynamics Simulations." 'Physical Chemistry Chemical Physics' 13, no. 30 (2011): 13629-37.
+- [[MHY06]] McKenna, SA, DB Hart, and L Yarrington. "Impact of Sensor Detection Limits on Protecting Water Distribution Systems from Contamination Events." 'Journal of Water Resources Planning and Management' 132, no. 4 (2006): 305-09.
+- [[MDH03]] McKenna, SA, J Doherty, and DB Hart. "Non-Uniqueness of Inverse Transmissivity Field Calibration and Predictive Transport Modeling." 'Journal of Hydrology' 281, no. 4 (2003): 265-80.
+
+
+[bibliography]
+.Conferences
+- [[SIWW14]] 'Singapore International Water Week, 2014'. Singapore, Singapore. (2014). *Session co-chair*
+- [[TKY13]] Torrealba, V, Z Karpyn, H Yoon, DB Hart, and KA Klise. "Pore-Scale Investigation on Stress-Dependent Characteristics of Granular Packs and Their Impact on Multiphase Fluid Distribution." 'AGU Fall Meeting Abstracts' 1 (2013): 1229.
+- [[CLH13]] Criscenti, LJ, K Leung, and D Hart. 'Water and ion adsorption to goethite-water interfaces'. Paper presented at the 'ABSTRACTS OF PAPERS OF THE AMERICAN CHEMICAL SOCIETY', (2013).
+- [[HYM12]] Hart, D, H Yoon, and SA McKenna. "Parameter Estimation Uncertainty: Comparing Apples and Apples?". 'AGU Fall Meeting Abstracts' 1 (2012): 05.
+- [[CHT12]] Criscenti, LJ, D Hart, and K Theel. "Ion Adsorption at Goethite-Water Interfaces." Paper presented at the 'ABSTRACTS OF PAPERS OF THE AMERICAN CHEMICAL SOCIETY', (2012).
+- [[CTH11]] Criscenti, Louise, KL Theel, DB Hart. "Electrolyte Adsorption to Geothite-Water Interfaces." 'Presented at the Goldschmidt Conference, Prague, CZ.' Aug (2011).
+- [[HMH11]] Hart, DB, SA McKenna, TB Haxton, R Murray. CANARY Overview and Presentation. Presented at 'INFORMS Computing Society 2011 Conference, Monteray CA.' (2011). *Presented*
+- [[MHU11]] McKenna, SA, DB Hart, K Umberg, TB Haxton, J Hall, S Panguluri. "Impacts of Varying Event Definitions for Event Detection System Performance" Presented at 'ASCE EWRI Annual Meeting, Palm Springs CA.' May (2011). *Presented*
+- [[HYM11]] Hart, D, Hongkyu Y, and SA Mckenna. "Predictive Uncertainty Analysis of a Highly Heterogeneous Field-Scale Groundwater Model Using Null-Space Monte Carlo." 'AGU Fall Meeting Abstracts' 1 (2011): 05.
+- [[YMH10]] Yoon, H, SA McKenna, and DB Hart. "Estimating Parameters and Uncertainty for Three-Dimensional Flow and Transport in a Highly Heterogeneous Sand Box Experiment." 'AGU Fall Meeting Abstracts' 1 (2010): 1076.
+- [[HMM10]] Hart, DB, SA McKenna, R Murray, and T Haxton. "Combining Water Quality and Operational Data for Improved Event Detection." 'Water Distribution Systems Analysis (WDSA) Conference'  (2010): 12-15. *Presented*
+- [[MHH10]] McKenna, SA, DB Hart, T Haxton, and R Murray. "Effective Integration of Operations Data with Water Quality Data." 'AWWA Water Quality Technology Conference, Savannah, Georgia, November 14-17'  (2010).
+- [HMB09]] Hart, D.B., S.A. McKenna and R.L. Beauheim, "Calibration of the WIPP Culebra Transmissivity Fields", in 'Proceedings of the PEST Conference, November 2-4, Bethesda, Maryland,' (2009): 18 pp. *Presented*
+- [[BMH09]] Beauheim, RL, SA McKenna, and DB Hart. "Conceptual-Model-Driven Characterization of the Culebra Dolomite at the Waste Isolation Pilot Plant." 'AGU Spring Meeting Abstracts' 1 (2009): 02.
+- [[VMH09]] Vugrin, Eric, Sean A McKenna, and David Hart. "Trajectory Clustering Approach for Reducing Water Quality Event False Alarms." 'Proc., of ASCE Annual World Environmental and Water Resources Congress, Kansas City, Missouri, May'  (2009): 17-21.
+- [[MHK08]] McKenna, SA, DB Hart, JD Kanney, and RL Beauheim. "Stochastic Inverse Modeling of Large-Scale Fractured Domains: Example of the Culebra Dolomite in the Vicinity of the WIPP Site." 'AGU Fall Meeting Abstracts' 1 (2008): 02. *Presented*
+- [[MHK07]] McKenna, SA, DB Hart, KA Klise, VA Cruz, and MP Wilson. "Event Detection from Water Quality Time Series." 'Proc. ASCE World Envir. & Water Resources Congress, Tampa, Fla'  (2007).
+- [[HMK07]] Hart, DB, SA McKenna, KA Klise, BA Cruz, and MP Wilson. "Canary: A Water Quality Event Detection Algorithm Development Tool." 'Proceedings of the World Environmental and Water Resources Congress, ASCE, Reston, VA'  (2007): 1-9.
+- [[PLK06]] Peplinski, WJ, TS Lowry, SA McKenna, and DB Hart. "X-Ray Absorption Imaging of Diffusion in Diatomaceous Mudstone and Hard Shale from the Horonobe, Japan Site." 'AGU Fall Meeting Abstracts' 1 (2006): 1283.
+- [[MH05]] McKenna, SA, and DB Hart. "Identifying Spatially Variable Sensitivity of Model Predictions and Calibrations." 'AGU Fall Meeting Abstracts' 1 (2005): 1356.
+- [[MDH02]] McKenna, SA, J Doherty, and D Hart. "Non-Unique Transmissivity Field Calibration and Predictive Transport Modeling." 'AGU Fall Meeting Abstracts' 1 (2002): 02.
+
+
+[bibliography]
+.Technical Reports
+- [[MHM10]] Murray, R, T Haxton, SA McKenna, DB Hart, KA Klise, M Koch, ED Vugrin, et al. "Water Quality Event Detection Systems for Drinking Water Contamination Warning Systems—Development, Testing, and Application of Canary." 'EPAI600IR-lOI036, US'  (2010).
+- [[Har09]] Hart, D.B., S.A. McKenna and R.L. Beauheim. "Analysis Report for Task 7 of AP-114: Calibration of Culebra Transmissivity Fields." Sandia National Laboratories, WIPP Records Center, Carlsbad, NM. ERMS 541153 (2009).
+- [[HKV09]] Hart, DB, KA Klise, ED Vugrin, SA McKenna, and MP Wilson. "Canary User’s Manual and Software Upgrades." 'EPA/600/R-08/040A'  (2009).
+- [[HMM08]] Hart, David B., R. M. Holt, and S. A. McKenna. "Analysis Report for Task 5 of AP-114: Generation of Revised Base Transmissivity Fields", Sandia National Laboratories, WIPP Records Center, Carlsbad, NM, ERMS 541153 (2008).
+- [[MH03]] McKenna, SA, and DB Hart. "Analysis Report, Task 4 of AP-088, Conditioning of Base T Fields to Transient Heads." Sandia National Laboratories, WIPP Records Center, Carlsbad, NM, ERMS 531124 (2003).
+
