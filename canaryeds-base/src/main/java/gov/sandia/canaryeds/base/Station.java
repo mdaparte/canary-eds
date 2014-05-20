@@ -30,13 +30,18 @@ import gov.sandia.seme.framework.ConfigurationException;
 import gov.sandia.seme.framework.InitializationException;
 import gov.sandia.seme.framework.InvalidComponentClassException;
 import gov.sandia.seme.util.MessagableImpl;
+import java.io.IOException;
 import static java.lang.Math.max;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import org.apache.log4j.Logger;
+import org.json.simple.JSONValue;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 /**
  * @if doxyUser
@@ -178,7 +183,7 @@ public final class Station extends MessagableImpl implements ModelConnection {
         this.recvdStatusForCurrentStep = new boolean[0];
         this.channels = new HashMap();
         this.channelList = new ArrayList();
-        this.configure(conf);
+        //this.configure(conf);
     }
 
     public Station(Descriptor conf) {
@@ -187,11 +192,30 @@ public final class Station extends MessagableImpl implements ModelConnection {
         this.recvdStatusForCurrentStep = new boolean[0];
         this.channels = new HashMap();
         this.channelList = new ArrayList();
-        this.configure(conf);
+        //this.configure(conf);
     }
 
+    public final void configure(String jsonObj) throws ConfigurationException {
+        JSONParser parser = new JSONParser();
+        try {
+            HashMap config = (HashMap) parser.parse(jsonObj);
+            HashMap descMap = new EDSComponents().getChannelDescriptors(config);
+            if (descMap.size()>1) {
+                throw new ConfigurationException("you cannot pass multiple station configuration maps to a Station object's configure function");
+            } else if (descMap.isEmpty()) {
+                throw new ConfigurationException("no valid data was passed in to the Station configuration. Data was: "+jsonObj);
+            }
+            Descriptor conf = (Descriptor) descMap.values().iterator().next();
+            this.configure(conf);
+        } catch (ParseException ex) {
+            LOG.fatal("syntax error in configuration of Station "+this.name+", bad data was: "+jsonObj, ex);
+            throw new ConfigurationException(ex.getMessage());
+        }
+    }
+    
+    
     @Override
-    public final void configure(Descriptor conf) {
+    public final void configure(Descriptor conf) throws ConfigurationException {
         configDesc = conf;
         tag = conf.getTag();
         LOG.info(
@@ -234,6 +258,7 @@ public final class Station extends MessagableImpl implements ModelConnection {
 
     /**
      * Get the list of events.
+     * @return list of event records
      */
     public ArrayList<EventRecord> getEvents() {
         return events;
@@ -500,7 +525,8 @@ public final class Station extends MessagableImpl implements ModelConnection {
 
     @Override
     public Descriptor getConfiguration() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        LOG.warn("this may not contain modifications to the configuration made via API calls");
+        return this.configDesc;
     }
 
     public boolean[] getRecvdStatusForCurrentStep() {
@@ -519,6 +545,77 @@ public final class Station extends MessagableImpl implements ModelConnection {
         this.synchronizeToTags = synchronizeToTags;
     }
 
+    public boolean addPatternData(String json) {
+        LOG.warn("the pattern matching capabilities are not yet implemented");
+        return false;
+    }
+    
+    public String getPatternData() {
+        LOG.warn("the pattern matching capabilities are not yet implemented");
+        return null;
+    }
+    
+    public void pushJSONtoInbox(String json) {
+        this.pushJSONtoInbox(json, 100, TimeUnit.SECONDS);
+    }
+    
+    public void pushJSONtoInbox(String json, int timeoutValue, TimeUnit timeoutUnits) {
+        Message msg = new Message();
+        JSONParser parser = new JSONParser();
+        try {
+            HashMap config = (HashMap) parser.parse(json);
+            Step newStep = this.baseStep.getClass().newInstance();
+            newStep.setOrigin(this.baseStep.getOrigin());
+            newStep.setStepSize(this.baseStep.getStepSize());
+            newStep.setFormat(this.baseStep.getFormat());
+            newStep.setValue(this.baseStep.getValue());
+            if (config.containsKey("step")) {
+                newStep.setValue((String)config.get("step"));
+                msg.setStep(newStep);
+            }
+            if (config.containsKey("tag")) {
+                msg.setTag((String) config.get("tag"));
+            }
+            if (config.containsKey("type")) {
+                msg.setType(MessageType.valueOf((String)config.get("type")));
+            }
+            if (config.containsKey("data")) {
+                msg.setData((HashMap) config.get("data"));
+            }
+            this.inbox.offer(msg, timeoutValue, timeoutUnits);
+        } catch (ParseException ex) {
+            LOG.fatal("syntax error in message , bad data was: "+json, ex);
+        } catch (InstantiationException ex) {
+            LOG.fatal("syntax error in message, bad step type?, bad data was: "+json, ex);
+        } catch (IllegalAccessException ex) {
+            LOG.fatal("syntax error in message, bad data was: "+json, ex);
+        } catch (ClassCastException ex) {
+            LOG.fatal("syntax error in message or missing key , bad data was: "+json, ex);
+        }
+    }
+    
+    public String popJSONfromOutbox() {
+        return popJSONfromOutbox(100, TimeUnit.SECONDS);
+    }
+    
+    public String popJSONfromOutbox(int timeoutValue, TimeUnit timeoutUnits) {        
+        if (this.outbox.isEmpty()) {
+            return null;
+        }
+        try {
+            Message msg = this.outbox.poll(timeoutValue, timeoutUnits);
+            HashMap msgMap = new HashMap();
+            msgMap.put("tag", msg.getTag());
+            msgMap.put("type", msg.getType());
+            msgMap.put("step", msg.getStep().toString());
+            msgMap.put("data", msg.getData());
+            return JSONValue.toJSONString(msgMap);
+        } catch (InterruptedException ex) {
+            java.util.logging.Logger.getLogger(Station.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return JSONValue.toJSONString(null);
+    }
+    
     /**
      * Read messages from inbox and check for synchronized stepping and mark
      * status messages if that exists. If the step is null AND synchronized

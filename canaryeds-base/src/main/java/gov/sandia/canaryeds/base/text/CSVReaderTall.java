@@ -20,6 +20,7 @@
  */
 package gov.sandia.canaryeds.base.text;
 
+import gov.sandia.seme.framework.ConfigurationException;
 import gov.sandia.seme.framework.Descriptor;
 import gov.sandia.seme.framework.InputConnection;
 import gov.sandia.seme.framework.Message;
@@ -89,7 +90,7 @@ public class CSVReaderTall extends MessagableImpl implements InputConnection {
     private String dateFormat = null;
 
     @Override
-    public void configure(Descriptor config) {
+    public void configure(Descriptor config) throws ConfigurationException {
         super.configure(config);
         HashMap options = config.getOptions();
         this.location = (String) options.get("location");

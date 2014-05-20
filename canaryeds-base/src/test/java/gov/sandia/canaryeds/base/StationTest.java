@@ -15,6 +15,7 @@
  */
 package gov.sandia.canaryeds.base;
 
+import gov.sandia.seme.framework.ConfigurationException;
 import gov.sandia.seme.framework.Descriptor;
 import gov.sandia.seme.framework.Message;
 import gov.sandia.seme.framework.Step;
@@ -55,7 +56,7 @@ public class StationTest {
      */
     @Test
     @Ignore
-    public void testConfigure() {
+    public void testConfigure() throws ConfigurationException {
         System.out.println("configure");
         Descriptor conf = null;
         Station instance = null;

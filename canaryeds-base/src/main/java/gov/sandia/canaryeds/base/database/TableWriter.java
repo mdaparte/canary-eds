@@ -20,6 +20,7 @@
  */
 package gov.sandia.canaryeds.base.database;
 
+import gov.sandia.seme.framework.ConfigurationException;
 import gov.sandia.seme.framework.Descriptor;
 import gov.sandia.seme.framework.Message;
 import gov.sandia.seme.framework.OutputConnection;
@@ -145,7 +146,7 @@ public class TableWriter extends MessagableImpl implements OutputConnection {
         super(label, delay);
     }
 @Override
-    public void configure(Descriptor config) {
+    public void configure(Descriptor config) throws ConfigurationException {
         super.configure(config); //To change body of generated methods, choose Tools | Templates.
         
         //This is where we grab all of the official values from the configuration file and establish our connection values for the database (including queries).

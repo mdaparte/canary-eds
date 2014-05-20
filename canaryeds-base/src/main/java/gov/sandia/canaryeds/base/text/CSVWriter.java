@@ -20,6 +20,7 @@
  */
 package gov.sandia.canaryeds.base.text;
 
+import gov.sandia.seme.framework.ConfigurationException;
 import gov.sandia.seme.framework.Descriptor;
 import gov.sandia.seme.framework.Message;
 import gov.sandia.seme.framework.MessageType;
@@ -82,7 +83,7 @@ public class CSVWriter extends MessagableImpl implements OutputConnection {
     }
 
     @Override
-    public void configure(Descriptor config) {
+    public void configure(Descriptor config) throws ConfigurationException {
         super.configure(config);
         HashMap options = config.getOptions();
         this.location = (String) options.get("location");
