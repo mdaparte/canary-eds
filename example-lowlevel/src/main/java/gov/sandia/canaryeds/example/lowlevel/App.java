@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.yaml.snakeyaml.DumperOptions;
@@ -64,7 +65,8 @@ public class App {
         HashMap data = null;
         Step myStep = null;
         Message myMessage = null;
-        
+        String jsonMessage = null;
+
         // This demo will read the configuraiton from the file 'lowLevelDemo.yml'
         try {
             File cfgFile = new File("lowLevelDemo.yml");
@@ -93,11 +95,14 @@ public class App {
                 stnConfig = stnDescriptors.get(stnName);
                 // Create a new Station() object as \c curStation
                 curStation = new Station(stnName, 1);
-                curStation.setComponentFactory(edsFactory);                // Configure the station with the \c stnConfig descriptor
+                // Set the component factor to use the CANARY specific object
+                curStation.setComponentFactory(edsFactory);
+                // Configure the station with the \c stnConfig descriptor
                 curStation.configure(stnConfig);
                 // Initialize the station
                 curStation.initialize();
-                curStation.setBaseStep(new IntegerStep(0,1,1,"#"));
+                // Set the base step FIXME: TODO: This should be in CONFIGURATION
+                curStation.setBaseStep(new IntegerStep(0, 1, 1, "#"));
                 // Add the configured, initialized station to the list \c myStations
                 myStations.add(curStation);
             } // end for
@@ -118,27 +123,32 @@ public class App {
                 myStep = thisStation.getBaseStep();
                 myStep.setIndex(myStep.getIndex() + 1);
                 thisStation.setCurrentStep(myStep);
-        // Loading the random data into messages for 100 steps, printing results
+                // Loading the random data into messages for 100 steps, printing results
                 // to stdout
-                // 
+                // Add new data
                 data = new HashMap();
                 data.put("value", new Random().nextDouble() + 15.0);
                 myMessage = new Message(MessageType.VALUE, "demoChannel1", data, myStep);
                 thisStation.getInboxHandle().add(myMessage);
+                // Add new data
                 data = new HashMap();
                 data.put("value", new Random().nextDouble() + 22.0);
                 myMessage = new Message(MessageType.VALUE, "demoChannel2", data, myStep);
                 thisStation.getInboxHandle().add(myMessage);
+                // Add new data
                 data = new HashMap();
                 data.put("value", new Random().nextDouble() + 77.0);
                 myMessage = new Message(MessageType.VALUE, "demoChannel3", data, myStep);
                 thisStation.getInboxHandle().add(myMessage);
+                // Add new data
                 data = new HashMap();
                 data.put("value", new Random().nextDouble() + 1.0);
                 myMessage = new Message(MessageType.VALUE, "demoChannel4", data, myStep);
                 thisStation.getInboxHandle().add(myMessage);
+                // Evaluate the algorithms and read the result
                 int result = thisStation.evaluateModel();
                 myMessage = thisStation.getMessageFromOutbox();
+                System.out.println(myMessage);
             }
         }
         // Loading the shifted random data into messages for 100 steps, printing
@@ -147,37 +157,65 @@ public class App {
             for (Station thisStation : myStations) {
                 myStep = thisStation.getBaseStep();
                 myStep.setIndex(myStep.getIndex() + 1);
-        // Loading the random data into messages for 100 steps, printing results
-                // to stdout
-                data = new HashMap();
-                data.put("value", new Random().nextDouble() + 12.0);
-                myMessage = new Message(MessageType.VALUE, "demoChannel1", data, myStep);
-                thisStation.getInboxHandle().add(myMessage);
-                data = new HashMap();
-                data.put("value", new Random().nextDouble() + 25.0);
-                myMessage = new Message(MessageType.VALUE, "demoChannel2", data, myStep);
-                thisStation.getInboxHandle().add(myMessage);
-                data = new HashMap();
-                data.put("value", new Random().nextDouble() + 77.0 + i);
-                myMessage = new Message(MessageType.VALUE, "demoChannel3", data, myStep);
-                thisStation.getInboxHandle().add(myMessage);
-                data = new HashMap();
-                data.put("value", new Random().nextDouble() + 1.0 - 1*0.1);
-                myMessage = new Message(MessageType.VALUE, "demoChannel4", data, myStep);
-                thisStation.getInboxHandle().add(myMessage);
+                // Loading the random data into messages for 100 steps, printing results
+                // to stdout. However, we are adding data using JSON strings this time!
+                // Add new data
+                jsonMessage = "{\"type\": \"VALUE\","
+                        + " \"tag\": \"demoChannel1\", "
+                        + "\"step\": \"" + myStep.toString() + "\", "
+                        + "\"data\": {\"value\": "
+                        + (new Double(new Random().nextDouble() + 12.0)).toString() + "}}";
+                if (i == 0) {System.out.println(jsonMessage);}
+                thisStation.pushJSONtoInbox(jsonMessage);
+
+                // Add new data
+                jsonMessage = "{\"type\": \"VALUE\","
+                        + " \"tag\": \"demoChannel2\", "
+                        + "\"step\": \"" + myStep.toString() + "\", "
+                        + "\"data\": {\"value\": "
+                        + (new Double(new Random().nextDouble() + 25.0)).toString() + "}}";
+                if (i == 0) {System.out.println(jsonMessage);}
+                thisStation.pushJSONtoInbox(jsonMessage);
+
+                // Add new data
+                jsonMessage = "{\"type\": \"VALUE\","
+                        + " \"tag\": \"demoChannel3\", "
+                        + "\"step\": \"" + myStep.toString() + "\", "
+                        + "\"data\": {\"value\": "
+                        + (new Double(new Random().nextDouble() + 77.0 + i)).toString() + "}}";
+                if (i == 0) {System.out.println(jsonMessage);}
+                thisStation.pushJSONtoInbox(jsonMessage);
+
+                // Add new data
+                jsonMessage = "{\"type\": \"VALUE\","
+                        + " \"tag\": \"demoChannel4\", "
+                        + "\"step\": \"" + myStep.toString() + "\", "
+                        + "\"data\": {\"value\": "
+                        + (new Double(new Random().nextDouble() + 1.0 - 1 * 0.1)).toString() + "}}";
+                if (i == 0) {System.out.println(jsonMessage);}
+                thisStation.pushJSONtoInbox(jsonMessage);
+
+                // Evaluate the algorithms and read the result
                 int result = thisStation.evaluateModel();
+
+                // Read a message as a JSON formatted string (for string-only API interfacing)
+                // the timeout version of the call is commented below.
+                // jsonMessage = thisStation.popJSONfromOutbox(1, TimeUnit.MINUTES);
+                jsonMessage = thisStation.popJSONfromOutbox();
+                
+                if (i == 0) {System.out.println(jsonMessage);}
             }
         }
 
         // Extracting any EventRecords and printing them to stdout.
         for (Station thisStation : myStations) {
-            ArrayList events = thisStation.getEvents();
-            for (Object myEvent : events) {
-                EventRecord thisEvent = (EventRecord) myEvent;
+            ArrayList<EventRecord> events = thisStation.getEvents();
+            for (EventRecord thisEvent : events) {
                 System.out.println(thisEvent.summarize());
+                System.out.println(thisEvent.toString());
             }
         }
-        
+
         // Exit the demo
         System.out.println("Demo has completed successfully.");
         System.exit(0);
