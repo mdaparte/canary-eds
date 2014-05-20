@@ -6,7 +6,7 @@ demoStation1:
             # Step options need to be specified here, since there is no 
             # controller specified using this method. 
             DateTimeStep: 
-                stepSize:   '00:01:00'
+                stepSize:   '00:05:00'
                 stepFormat: "MM/dd/yyyy HH:mm:ss"
                 stepStart:  '02/21/2006 00:00:00'
         dataStyle: all

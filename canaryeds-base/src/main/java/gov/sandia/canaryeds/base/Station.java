@@ -34,6 +34,7 @@ import static java.lang.Math.max;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import org.apache.log4j.Logger;
 
@@ -196,6 +197,28 @@ public final class Station extends MessagableImpl implements ModelConnection {
         LOG.info(
                 "Configuring Station'{'name=" + conf.getName() + "'}'");
         LOG.debug(conf.toString());
+        HashMap opts = conf.getOptions();
+        LOG.debug(opts);
+        if (opts.containsKey("stepConfig")) {
+            // do step config
+        }
+        try {
+            if (opts.get("channels") instanceof Map) {
+                HashMap descChannels = new EDSComponents().getChannelDescriptors((HashMap) opts.get("channels"));
+                for ( Object item : descChannels.values()) {
+                    configDesc.addToConsumesTags(((Descriptor)item).getTag());
+                    configDesc.addToRequiresComponents((Descriptor) item);
+                }
+            }
+            if (opts.get("workflow") instanceof Map) {
+                HashMap descWorkflow = new EDSComponents().getWorkflowDescriptors((HashMap) opts.get("workflow"));
+                for ( Object item : descWorkflow.values()) {
+                    configDesc.addToRequiresComponents((Descriptor) item);
+                }
+            }
+        } catch (ConfigurationException ex) {
+            java.util.logging.Logger.getLogger(Station.class.getName()).log(Level.SEVERE, null, ex);
+        }
         ArrayList<String> notConsumedYet;
         notConsumedYet = new ArrayList();
         for (String consume : conf.getConsumesTags()) {
@@ -220,9 +243,9 @@ public final class Station extends MessagableImpl implements ModelConnection {
     public final void initialize() throws InitializationException {
         Descriptor conf = configDesc;
         int maxWinSize = 50;
-        if (conf.getRequiresComponents() == null ||
-                conf.getRequiresComponents().isEmpty()) {
-            throw new InitializationException("Failed to configure station "+this.name+", no data channels or workflows/algorithms supplied.");
+        if (conf.getRequiresComponents() == null
+                || conf.getRequiresComponents().isEmpty()) {
+            throw new InitializationException("Failed to configure station " + this.name + ", no data channels or workflows/algorithms supplied.");
         }
         for (Descriptor reqd : conf.getRequiresComponents()) {
             switch (reqd.getType().toString()) {
@@ -237,7 +260,7 @@ public final class Station extends MessagableImpl implements ModelConnection {
                                 workflow.getMaxWindowNeeded());
                     } catch (ConfigurationException ex) {
                         LOG.fatal("error adding Workflow");
-                        throw new InitializationException("Workflow could not be configured: "+ex.getMessage());
+                        throw new InitializationException("Workflow could not be configured: " + ex.getMessage());
                     } catch (InvalidComponentClassException ex) {
                         LOG.fatal("error adding Workflow");
                         throw new InitializationException(ex.getMessage());
