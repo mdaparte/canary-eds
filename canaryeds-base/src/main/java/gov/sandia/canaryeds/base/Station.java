@@ -30,7 +30,6 @@ import gov.sandia.seme.framework.ConfigurationException;
 import gov.sandia.seme.framework.InitializationException;
 import gov.sandia.seme.framework.InvalidComponentClassException;
 import gov.sandia.seme.util.MessagableImpl;
-import java.io.IOException;
 import static java.lang.Math.max;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -650,6 +649,11 @@ public final class Station extends MessagableImpl implements ModelConnection {
         return null;
     }
 
+    public void clearEventList() {
+        
+    }
+    
+    
     @Override
     public String[] parseStatusCode(int code) {
         if (code == 0) {
