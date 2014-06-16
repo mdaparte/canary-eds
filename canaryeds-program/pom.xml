@@ -3,12 +3,12 @@
     <modelVersion>4.0.0</modelVersion>
     
     <parent>
-        <groupId>gov.sandia.canaryeds</groupId>
-        <artifactId>gov-sandia-canaryeds</artifactId>
+        <groupId>org.canaryeds</groupId>
+        <artifactId>org-canaryeds</artifactId>
         <version>5.0</version>
     </parent>
 
-    <groupId>gov.sandia.canaryeds</groupId>
+    <groupId>org.canaryeds</groupId>
     <artifactId>canaryeds-program</artifactId>
     <version>5.0-SNAPSHOT</version>
     <packaging>jar</packaging>
@@ -25,7 +25,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>gov.sandia.canaryeds.program.CanaryEDS</mainClass>
+                            <mainClass>org.canaryeds.program.CanaryEDS</mainClass>
                         </manifest>
                         <manifestSections>
                             <manifestSection>
@@ -67,7 +67,7 @@
             <version>1.0</version>
         </dependency>
         <dependency>
-            <groupId>gov.sandia.canaryeds</groupId>
+            <groupId>org.canaryeds</groupId>
             <artifactId>canaryeds-external-eddies</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>

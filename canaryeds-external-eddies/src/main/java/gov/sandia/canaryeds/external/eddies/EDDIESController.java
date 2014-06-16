@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package gov.sandia.canaryeds.external.eddies;
+package org.canaryeds.external.eddies;
 
 import gov.sandia.seme.framework.Descriptor;
 import gov.sandia.seme.util.ControllerImpl;

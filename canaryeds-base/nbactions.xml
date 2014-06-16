@@ -26,7 +26,7 @@ National Laboratories and the US EPA NHSRC.
                 <goal>org.codehaus.mojo:exec-maven-plugin:1.2.1:exec</goal>
             </goals>
             <properties>
-                <exec.args>-classpath %classpath gov.sandia.canaryeds.base.program.CanaryEDS -v Big_Test.yml</exec.args>
+                <exec.args>-classpath %classpath org.canaryeds.base.program.CanaryEDS -v Big_Test.yml</exec.args>
                 <exec.executable>java</exec.executable>
                 <exec.workingdir>../examples</exec.workingdir>
             </properties>
@@ -38,7 +38,7 @@ National Laboratories and the US EPA NHSRC.
                 <goal>org.codehaus.mojo:exec-maven-plugin:1.2.1:exec</goal>
             </goals>
             <properties>
-                <exec.args>-Xdebug -Xrunjdwp:transport=dt_socket,server=n,address=${jpda.address} -classpath %classpath gov.sandia.canaryeds.base.program.CanaryEDS -v Big_Test.yml</exec.args>
+                <exec.args>-Xdebug -Xrunjdwp:transport=dt_socket,server=n,address=${jpda.address} -classpath %classpath org.canaryeds.base.program.CanaryEDS -v Big_Test.yml</exec.args>
                 <exec.executable>java</exec.executable>
                 <jpda.listen>true</jpda.listen>
                 <exec.workingdir>../examples</exec.workingdir>
@@ -51,7 +51,7 @@ National Laboratories and the US EPA NHSRC.
                 <goal>org.codehaus.mojo:exec-maven-plugin:1.2.1:exec</goal>
             </goals>
             <properties>
-                <exec.args>-classpath %classpath gov.sandia.canaryeds.base.program.CanaryEDS -v Big_Test.yml</exec.args>
+                <exec.args>-classpath %classpath org.canaryeds.base.program.CanaryEDS -v Big_Test.yml</exec.args>
                 <exec.executable>${profiler.java}</exec.executable>
                 <exec.workingdir>../examples</exec.workingdir>
             </properties>

@@ -3,11 +3,11 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>gov.sandia.canaryeds</groupId>
+    <groupId>org.canaryeds</groupId>
     <artifactId>gov-sandia-canaryeds</artifactId>
     <version>5.0</version>
   </parent>
-  <groupId>gov.sandia.canaryeds</groupId>
+  <groupId>org.canaryeds</groupId>
   <artifactId>canaryeds-external-eddies</artifactId>
   <version>1.0-SNAPSHOT</version>
   <name>canaryeds-external-eddies</name>
@@ -16,7 +16,7 @@
   </properties>
   <dependencies>
     <dependency>
-      <groupId>gov.sandia.canaryeds</groupId>
+      <groupId>org.canaryeds</groupId>
       <artifactId>canaryeds-base</artifactId>
       <version>5.0-SNAPSHOT</version>
     </dependency>

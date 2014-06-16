@@ -22,7 +22,7 @@ To build CANARYEDS:
    > cd seme-framework-1.0
    > mvn clean compile install
 
-2. Install the gov.sandia.canaryeds::gov-sandia-canaryeds parent POM in your local maven repo
+2. Install the org.canaryeds::gov-sandia-canaryeds parent POM in your local maven repo
    > cd canaryeds-pom
    > mvn install
 
@@ -33,8 +33,8 @@ To build CANARYEDS:
 Doing the three above will give access to the following packages:
  - gov.sandia.seme.framework
  - gov.sandia.seme.util
- - gov.sandia.canaryeds.base
- - gov.sandia.canaryeds.base.*
+ - org.canaryeds.base
+ - org.canaryeds.base.*
 
 The canaryeds-program module has the following dependencies:
  - seme-framework-1.0

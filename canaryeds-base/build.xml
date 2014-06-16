@@ -117,7 +117,7 @@ National Laboratories and the US EPA NHSRC.
         <attribute name="Implementation-Title"     value="${component.title}"/>
         <attribute name="Implementation-Version"   value="${component.version}"/> 
         <attribute name="Implementation-Vendor"    value="Sandia National Laboratories"/>
-        <attribute name="Implementation-Vendor-Id" value="gov.sandia"/>
+        <attribute name="Implementation-Vendor-Id" value="org.canaryeds"/>
     </manifest>
     </target>
     <import file="nbproject/build-impl.xml"/>

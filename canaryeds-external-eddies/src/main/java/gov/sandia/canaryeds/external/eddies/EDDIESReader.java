@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package gov.sandia.canaryeds.external.eddies;
+package org.canaryeds.external.eddies;
 
 import gov.sandia.seme.framework.InputConnection;
 import gov.sandia.seme.framework.Step;

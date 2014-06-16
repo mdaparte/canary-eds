@@ -19,7 +19,7 @@
  * National Laboratories and the US EPA NHSRC.
  */
 
-package gov.sandia.canaryeds.external.eddies;
+package org.canaryeds.external.eddies;
 
 import gov.sandia.seme.framework.Descriptor;
 import org.junit.After;
