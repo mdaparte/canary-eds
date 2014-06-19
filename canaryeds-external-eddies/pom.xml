@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.canaryeds</groupId>
-    <artifactId>gov-sandia-canaryeds</artifactId>
+    <artifactId>org-canaryeds</artifactId>
     <version>1.0</version>
   </parent>
   <groupId>org.canaryeds</groupId>

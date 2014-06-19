@@ -4,7 +4,7 @@
 
     <parent>
         <groupId>org.canaryeds</groupId>
-        <artifactId>gov-sandia-canaryeds</artifactId>
+        <artifactId>org-canaryeds</artifactId>
         <version>1.0</version>
     </parent>
 
