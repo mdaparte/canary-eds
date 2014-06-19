@@ -4,7 +4,7 @@
     <groupId>org.canaryeds</groupId>
     <artifactId>canaryeds-site</artifactId>
     <packaging>pom</packaging>
-    <version>5.0</version>
+    <version>1.0</version>
     <name>CANARY-EDS Site</name>
     <description>Event detection software for water infrastructure security</description>
     <inceptionYear>2007</inceptionYear>

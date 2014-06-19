@@ -5,12 +5,12 @@
     <parent>
         <groupId>org.canaryeds</groupId>
         <artifactId>org-canaryeds</artifactId>
-        <version>5.0</version>
+        <version>1.0</version>
     </parent>
 
     <groupId>org.canaryeds</groupId>
     <artifactId>canaryeds-program</artifactId>
-    <version>5.0-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>canaryeds-program</name>
@@ -49,7 +49,7 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>canaryeds-base</artifactId>
-            <version>5.0-SNAPSHOT</version>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.swinglabs</groupId>

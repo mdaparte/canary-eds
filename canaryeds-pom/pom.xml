@@ -3,7 +3,7 @@
     <groupId>org.canaryeds</groupId>
     <artifactId>org-canaryeds</artifactId>
     <packaging>pom</packaging>
-    <version>5.0</version>
+    <version>1.0</version>
     <name>org-canaryeds</name>
     <description>Event detection software for water infrastructure security</description>
     <inceptionYear>2007</inceptionYear>
