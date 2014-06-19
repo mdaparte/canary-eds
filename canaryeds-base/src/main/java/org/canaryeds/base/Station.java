@@ -89,6 +89,11 @@ public final class Station extends MessagableImpl implements ModelConnection {
         return true;
     }
 
+    /**
+     * Returns true if any values passed evaluate to true.
+     * @param values List of boolean values.
+     * @return True or False
+     */
     private static boolean any(boolean[] values) {
         if (values.length == 0) {
             return true;
@@ -101,12 +106,18 @@ public final class Station extends MessagableImpl implements ModelConnection {
         return false;
     }
 
+    /**
+     * Sets all values in the list to false.
+     * @param values The list of boolean values.
+     * @return An updated list of values where all have been set to false.
+     */
     private static boolean[] clear(boolean[] values) {
         for (int i = 0; i < values.length; i++) {
             values[i] = false;
         }
         return values;
     }
+    
     /**
      * is the station currently executing.
      */
@@ -116,57 +127,67 @@ public final class Station extends MessagableImpl implements ModelConnection {
      * List of events that have been recorded.
      */
     protected final ArrayList<EventRecord> events = new ArrayList();
+    
     /**
      * The configuration object.
      */
     protected Descriptor configDesc;
+    
     /**
      * Access to the station's channels by name.
      */
     protected final HashMap<String, DataChannel> channels;
+    
     /**
      * Access to the station's channels in order.
      */
     protected final ArrayList<DataChannel> channelList;
+    
     /**
      * Is this station enabled for execution.
      */
     protected boolean enabled;
+    
     /**
      * The location ID number.
-     *
      */
     protected int locNumber;
+    
     /**
      * The station ID number.
-     *
      */
     protected int stnNumber;
+    
     /**
      * Handle to the current event.
-     *
      */
     protected EventRecord currentEvent;
+    
     /**
      * The station's last state.
-     *
      */
     protected EventStatus lastStatus;
+    
     /**
      * A list of tags that must be seen before workflow execution starts.
-     *
      */
     protected ArrayList<String> synchronizeToTags;
+    
     /**
      * The station's tag name (used for message routing).
-     *
      */
     protected String tag;
+    
     /**
      * The station's event detection workflows.
      */
     protected Workflow workflow = null;
 
+    /**
+     * Instantiate a station with a given label and delay.
+     * @param label The station label.
+     * @param d  The station delay.
+     */
     public Station(String label, int d) {
         super(label, d);
         this.synchronizeToTags = new ArrayList();
@@ -176,6 +197,12 @@ public final class Station extends MessagableImpl implements ModelConnection {
         this.channelList = new ArrayList();
     }
 
+    /**
+     * Instantiate a station with a given label, delay, and descriptor.
+     * @param label The station label.
+     * @param d The station delay.
+     * @param conf The descriptor.
+     */
     public Station(String label, int d, Descriptor conf) {
         super(label, d);
         this.synchronizeToTags = new ArrayList();
@@ -185,6 +212,10 @@ public final class Station extends MessagableImpl implements ModelConnection {
         //this.configure(conf);
     }
 
+    /**
+     * Instantiate a station based on a given descriptor.
+     * @param conf The descriptor.
+     */
     public Station(Descriptor conf) {
         super(conf.getName(), 10);
         this.synchronizeToTags = new ArrayList();
@@ -194,6 +225,11 @@ public final class Station extends MessagableImpl implements ModelConnection {
         //this.configure(conf);
     }
 
+    /**
+     * Take a given JSON object and use it to configure the current station.
+     * @param jsonObj The JSON object containing configuration information.
+     * @throws ConfigurationException 
+     */
     public final void configure(String jsonObj) throws ConfigurationException {
         JSONParser parser = new JSONParser();
         try {
@@ -212,7 +248,11 @@ public final class Station extends MessagableImpl implements ModelConnection {
         }
     }
     
-    
+    /**
+     * Configure the current station given a descriptor.
+     * @param conf The descriptor.
+     * @throws ConfigurationException 
+     */
     @Override
     public final void configure(Descriptor conf) throws ConfigurationException {
         configDesc = conf;
@@ -263,6 +303,10 @@ public final class Station extends MessagableImpl implements ModelConnection {
         return events;
     }
 
+    /**
+     * Initialize the current station.
+     * @throws InitializationException 
+     */
     @Override
     public final void initialize() throws InitializationException {
         Descriptor conf = configDesc;
@@ -522,42 +566,81 @@ public final class Station extends MessagableImpl implements ModelConnection {
         //statusData.toString();
     }
 
+    /**
+     * Returns the current configuration.
+     * @return The current configuration.
+     */
     @Override
     public Descriptor getConfiguration() {
         LOG.warn("this may not contain modifications to the configuration made via API calls");
         return this.configDesc;
     }
 
+    /**
+     * Returns the status for the current step.
+     * @return The status for the current step.
+     */
     public boolean[] getRecvdStatusForCurrentStep() {
         return recvdStatusForCurrentStep;
     }
 
+    /**
+     * Set the status for the current step.
+     * @param recvdStatusForCurrentStep The value to set the status to.
+     */
     public void setRecvdStatusForCurrentStep(boolean[] recvdStatusForCurrentStep) {
         this.recvdStatusForCurrentStep = recvdStatusForCurrentStep;
     }
 
+    /**
+     * Return the list of tags to synchronize to.
+     * @return 
+     */
     public ArrayList<String> getSynchronizeToTags() {
         return synchronizeToTags;
     }
 
+    /**
+     * Set the tags to synchronize to.
+     * @param synchronizeToTags 
+     */
     public void setSynchronizeToTags(ArrayList<String> synchronizeToTags) {
         this.synchronizeToTags = synchronizeToTags;
     }
 
+    /**
+     * Add the JSON pattern data.
+     * @param json Data to add.
+     * @return 
+     */
     public boolean addPatternData(String json) {
         LOG.warn("the pattern matching capabilities are not yet implemented");
         return false;
     }
     
+    /**
+     * Retrieve the JSON pattern data.
+     * @return
+     */
     public String getPatternData() {
         LOG.warn("the pattern matching capabilities are not yet implemented");
         return null;
     }
     
+    /**
+     * Pushes JSON message to the inbox of the station.
+     * @param json The message to push.
+     */
     public void pushJSONtoInbox(String json) {
         this.pushJSONtoInbox(json, 100, TimeUnit.SECONDS);
     }
     
+    /**
+     * Push JSON message to the inbox of the station.
+     * @param json The message to push.
+     * @param timeoutValue The time out value.
+     * @param timeoutUnits The time out units.
+     */
     public void pushJSONtoInbox(String json, int timeoutValue, TimeUnit timeoutUnits) {
         Message msg = new Message();
         JSONParser parser = new JSONParser();
@@ -593,10 +676,20 @@ public final class Station extends MessagableImpl implements ModelConnection {
         }
     }
     
+    /**
+     * Pop the JSON value from the outbox of the station.
+     * @return The JSON output.
+     */
     public String popJSONfromOutbox() {
         return popJSONfromOutbox(100, TimeUnit.SECONDS);
     }
     
+    /**
+     * Pop the JSON value from the outbox of the station.
+     * @param timeoutValue The timeout value.
+     * @param timeoutUnits The timeout units.
+     * @return  The JSON output.
+     */
     public String popJSONfromOutbox(int timeoutValue, TimeUnit timeoutUnits) {        
         if (this.outbox.isEmpty()) {
             return null;
@@ -649,11 +742,19 @@ public final class Station extends MessagableImpl implements ModelConnection {
         return null;
     }
 
+    /**
+     * Clear the event list.
+     */
     public void clearEventList() {
         
     }
     
     
+    /**
+     * Parse the given status code.
+     * @param code The code to parse.
+     * @return The parsed status code.
+     */
     @Override
     public String[] parseStatusCode(int code) {
         if (code == 0) {
@@ -664,3 +765,4 @@ public final class Station extends MessagableImpl implements ModelConnection {
     }
 
 }
+

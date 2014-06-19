@@ -51,9 +51,17 @@ public final class Batch extends ControllerImpl {
 
     static final long serialVersionUID = 4082333680955970892L;
 
+    /**
+     * Default constructor.
+     */
     public Batch() {
     }
 
+    /**
+     * Configure the current batch mode.
+     * @param desc The descriptor used to configure the batch mode.
+     * @throws ConfigurationException 
+     */
     @Override
     public void configure(Descriptor desc) throws ConfigurationException {
         LOG.info("Configuring controller");
@@ -72,6 +80,10 @@ public final class Batch extends ControllerImpl {
         }
     }
 
+    /**
+     * Retrieve a descriptor containing the current configuration information.
+     * @return A descriptor of the current configuration information.
+     */
     @Override
     public Descriptor getConfiguration() {
         Descriptor d = new Descriptor();
@@ -82,6 +94,9 @@ public final class Batch extends ControllerImpl {
         return d;
     }
 
+    /**
+     * Check the current load state. Currently unsupported.
+     */
     @Override
     public void loadState() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -147,6 +162,9 @@ public final class Batch extends ControllerImpl {
         CANARY.outputEventSummaries(stations);
     }
 
+    /**
+     * Set the current save state. Currently unsupported.
+     */
     @Override
     public void saveState() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

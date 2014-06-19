@@ -106,11 +106,18 @@ import org.apache.log4j.Logger;
 public class LPCF_BED extends WorkflowImpl {
 
     private static final Logger LOG = Logger.getLogger(LPCF_BED.class);
-
+    /**
+     * General constructor for LPCF_BED.
+     */
     public LPCF_BED() {
         super();
     }
 
+    /**
+     * Configure the current workflow with a given descriptor.
+     * @param desc The configuration descriptor.
+     * @throws ConfigurationException 
+     */
     @Override
     public void configure(Descriptor desc) throws ConfigurationException {
         /*
@@ -167,6 +174,11 @@ public class LPCF_BED extends WorkflowImpl {
         }
     }
 
+    /**
+     * Evaluate the workflow at a given location index.
+     * @param index The location to evaluate at.
+     * @return 
+     */
     @Override
     public HashMap evaluateWorkflow(int index) {
         HashMap res = new HashMap();
@@ -344,6 +356,10 @@ public class LPCF_BED extends WorkflowImpl {
         return res;
     }
 
+    /**
+     * Initialize the LCPF with BED.
+     * @throws InitializationException 
+     */
     @Override
     public void initialize() throws InitializationException {
         LOG.debug("Initializing LPCF with BED");
@@ -353,6 +369,10 @@ public class LPCF_BED extends WorkflowImpl {
         }        
     }
 
+    /**
+     * Retrieve current configuration information. Not currently supported.
+     * @return A descriptor containing current configuration information.
+     */
     @Override
     public Descriptor getConfiguration() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

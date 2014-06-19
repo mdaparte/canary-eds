@@ -75,8 +75,12 @@ public class TableReader extends MessagableImpl implements InputConnection {
         
     private DatabaseConnectionHandler db = new DatabaseConnectionHandler();
     private static final Logger LOG = Logger.getLogger(TableReader.class);
-
     
+    /**
+     * Configure the current station using a given descriptor.
+     * @param config A descriptor containing current configuration information.
+     * @throws ConfigurationException 
+     */
     @Override
     public void configure(Descriptor config) throws ConfigurationException {
         super.configure(config); //To change body of generated methods, choose Tools | Templates.
@@ -139,6 +143,11 @@ public class TableReader extends MessagableImpl implements InputConnection {
         this.initializeDatabaseConnection();
     }
     
+    /**
+     * Basic constructor, taking a label and initial delay.
+     * @param label The label.
+     * @param delay The initial delay.
+     */
     public TableReader(String label, int delay) {
         super(label, delay);
     }
@@ -260,6 +269,10 @@ public class TableReader extends MessagableImpl implements InputConnection {
         return true;
     }
 
+    /**
+     * Set if the input is constrained to the current step. Technically not supported as implementation is always constrained to current step.
+     * @param contrain Boolean defining constraint.
+     */
     public void setInputConstrainedToCurrentStep(boolean contrain) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         //sets above? 

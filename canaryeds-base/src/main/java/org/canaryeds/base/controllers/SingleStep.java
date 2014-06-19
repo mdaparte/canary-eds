@@ -52,6 +52,11 @@ public class SingleStep extends ControllerImpl {
     static final long serialVersionUID = 4082133680255940892L;
     private int curIndex = -1;
 
+    /**
+     * Configure the single step controller.
+     * @param desc The descriptor containing configuration data.
+     * @throws ConfigurationException 
+     */
     @Override
     public void configure(Descriptor desc) throws ConfigurationException {
         LOG.info("Configuring controller");
@@ -66,6 +71,10 @@ public class SingleStep extends ControllerImpl {
         }
     }
 
+    /**
+     * Retrieve a descriptor containing the configuration information for the current controller.
+     * @return 
+     */
     @Override
     public Descriptor getConfiguration() {
         Descriptor d = new Descriptor();
@@ -76,11 +85,17 @@ public class SingleStep extends ControllerImpl {
         return d;
     }
 
+    /**
+     * Verify current load state. Currently not supported.
+     */
     @Override
     public void loadState() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Run the current batch controller.
+     */
     @Override
     public void run() {
         running = true;
@@ -113,6 +128,9 @@ public class SingleStep extends ControllerImpl {
         running = false;
     }
 
+    /**
+     * Check the current save state. Not currently supported.
+     */
     @Override
     public void saveState() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

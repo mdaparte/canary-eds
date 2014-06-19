@@ -62,18 +62,29 @@ public class DatabaseConnectionHandler {
   private String connectionString = "";
   private String className = "com.mysql.jdbc.Driver";
 
+  /**
+   * Get the current class name.
+   * @return The current class name.
+   */
     public String getClassName() {
         return className;
     }
 
+    /**
+     * Set the current class name.
+     * @param className The current class name.
+     */
     public void setClassName(String className) {
         this.className = className;
     }
   
-  DatabaseConnectionHandler(){
-    this.initialized = false;
-  }  
-/**
+    /**
+     * Default constructor. Sets base values to uninitialized.
+     */
+    DatabaseConnectionHandler(){
+      this.initialized = false;
+    }  
+  /**
    * Constructor. Create a database connection object with the provided parameters.
    * @param url The server location.
    * @param database The database to connect to.

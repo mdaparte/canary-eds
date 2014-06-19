@@ -74,6 +74,11 @@ public class EventRecord {
     final HashMap<String, ArrayList<Integer>> limitViolation = new HashMap();
     final HashMap<String, ArrayList<DataStatus>> channelStatus = new HashMap();
 
+    /**
+     * Event Record Object
+     * @param stationName Name of the station.
+     * @param dataChannels  List of data channels.
+     */
     public EventRecord(String stationName, ArrayList<DataChannel> dataChannels) {
         this.stationName = stationName;
         this.channels.addAll(dataChannels);
@@ -90,11 +95,19 @@ public class EventRecord {
         }
     }
 
+    /**
+     * Clear the current list of workflow channels and set a new list.
+     * @param workflowChannels The new list of workflow channels.
+     */
     public void setWorkflowChannels(ArrayList<DataChannel> workflowChannels) {
         this.workflowChannels.clear();
         this.workflowChannels.addAll(workflowChannels);
     }
 
+    /**
+     * Generate a new HashMap of the current station.
+     * @return The map.
+     */
     public Map toMap() {
         this.eventIndex = this.steps.get(0).getIndex();
         HashMap map = new HashMap();
@@ -114,6 +127,10 @@ public class EventRecord {
         return map;
     }
 
+    /**
+     * Return a summarized map containing values, headers, 
+     * @return 
+     */
     public Map summarize() {
         if (startIndex >= 0) {
             this.eventIndex = this.steps.get(startIndex).getIndex();
@@ -170,12 +187,20 @@ public class EventRecord {
         return map;
     }
 
+    /**
+     * Generate JSON version of current object.
+     * @return 
+     */
     @Override
     public String toString() {
         String jsonText = JSONValue.toJSONString(this.toMap());
         return jsonText;
     }
 
+    /**
+     * Remove the first element from the internal lists.
+     * @param numPreEventSteps The number of pre-event steps to maintain.
+     */
     public void removeFirstElement(int numPreEventSteps) {
         if (this.hasNonNormalStatus || (this.steps.size() <= numPreEventSteps)) {
             return;
@@ -194,6 +219,9 @@ public class EventRecord {
         }
     }
 
+    /**
+     * Set the channel statuses based on the current channels.
+     */
     public void setChannelStatuses() {
         for (DataChannel channel : channels) {
             DataStatus status = channel.getStatus();
@@ -201,6 +229,10 @@ public class EventRecord {
         }
     }
 
+    /**
+     * Set the raw data for each channel.
+     * @param data List of raw data values.
+     */
     public void setChannelRawData(Double[] data) {
         int ct = 0;
         int dataIdx = steps.get(steps.size() - 1).getIndex();
@@ -215,6 +247,10 @@ public class EventRecord {
         }
     }
 
+    /**
+     * Set the limit violations for each channel.
+     * @param violations List of limit violations.
+     */
     public void setChannelLimitViolations(Integer[] violations) {
         int ct = 0;
         for (DataChannel channel : channels) {
@@ -227,6 +263,10 @@ public class EventRecord {
         }
     }
 
+    /**
+     * Set the contributed value for each channel.
+     * @param contributed The list of contributed values.
+     */
     public void setChannelContributed(Short[] contributed) {
         int ct = 0;
         for (DataChannel channel : channels) {
@@ -239,6 +279,10 @@ public class EventRecord {
         }
     }
 
+    /**
+     * Set the residuals for each channel.
+     * @param residuals The list of residuals.
+     */
     public void setChannelResiduals(Double[] residuals) {
         int ct = 0;
         for (DataChannel channel : channels) {
@@ -252,10 +296,19 @@ public class EventRecord {
 
     }
 
+    /**
+     * Add a step to the list of steps.
+     * @param step The step to add.
+     */
     public void addStep(Step step) {
         this.steps.add(step);
     }
 
+    /**
+     * Adds the probability and status to the current event record.
+     * @param probability The probability to set.
+     * @param status The current event status.
+     */
     public void addProbabilityAndStatus(double probability, EventStatus status) {
         this.probability.add(probability);
         this.stationStatus.add(status);
@@ -283,6 +336,10 @@ public class EventRecord {
         }
     }
 
+    /**
+     * Check to see whether the event is completed.
+     * @return Current event status.
+     */
     public boolean isCompleted() {
         return this.completed;
     }

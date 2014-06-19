@@ -198,10 +198,17 @@ public final class CANARY extends Engine implements Serializable {
         return eLevel;
     }
 
+    /**
+     * Set the log level.
+     * @param level The level to set.
+     */
     public void setLogLevel(Level level) {
         Logger.getRootLogger().setLevel(level);
     }
 
+    /**
+     * Generic CANARY constructor.
+     */
     public CANARY() {
         super();
         super.setComponentFactory(new EDSComponents());

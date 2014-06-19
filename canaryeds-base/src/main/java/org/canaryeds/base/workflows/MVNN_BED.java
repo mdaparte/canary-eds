@@ -126,10 +126,18 @@ public class MVNN_BED extends WorkflowImpl {
 
     private int distanceType = 2;
 
+    /**
+     * General constructor for MVNN_BED.
+     */
     public MVNN_BED() {
         super();
     }
 
+    /**
+     * Configure the current workflow with a configuration descriptor.
+     * @param desc The configuration descriptor.
+     * @throws ConfigurationException 
+     */
     @Override
     public void configure(Descriptor desc) throws ConfigurationException {
         /*
@@ -198,6 +206,11 @@ public class MVNN_BED extends WorkflowImpl {
         }
     }
 
+    /**
+     * Evaluate the current workflow at a given index.
+     * @param index The index to evaluate at.
+     * @return 
+     */
     @Override
     public HashMap evaluateWorkflow(int index) {
         HashMap res = new HashMap();
@@ -353,13 +366,17 @@ public class MVNN_BED extends WorkflowImpl {
         return res;
     }
 
+    /**
+     * Get the current configuraiton. Not currently supported.
+     * @return  The current configuration.
+     */
     @Override
     public Descriptor getConfiguration() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**
-     *
+     * Initialize the current system. Throws an exception if the parameter check fails.
      * @throws InitializationException
      */
     @Override

@@ -33,12 +33,12 @@ import java.util.HashMap;
 import org.apache.log4j.Logger;
 
 /**
- *
+ * SeMe TableWriter Class.
  * @author nprackl
  */
 public class TableWriter extends MessagableImpl implements OutputConnection {
     
- HashMap<String, Object> timestepOpts;
+    HashMap<String, Object> timestepOpts;
     HashMap<String, Object> databaseOpts;
     HashMap<String, Object> login;
 
@@ -103,10 +103,18 @@ public class TableWriter extends MessagableImpl implements OutputConnection {
     
     //No current bindings exist yet for indexes 7, 8, and 11 ("total items", "eventIdentifierName", and "byChannelResiduals")
 
+    /**
+     * Check to verify if current station is extended format or not.
+     * @return Boolean value defining extended format status.
+     */
     public boolean isExtendedFormat() {
         return extendedFormat;
     }
 
+    /**
+     * Set if current station is extended format or not.
+     * @param extendedFormat The extended format status.
+     */
     public void setExtendedFormat(boolean extendedFormat) {
         this.extendedFormat = extendedFormat;
     }
@@ -142,10 +150,17 @@ public class TableWriter extends MessagableImpl implements OutputConnection {
     }
     
 
+    /**
+     * General constructor, defining a new TableWriter with a given label and delay.
+     * @param label The label for the station.
+     * @param delay The initial delay.
+     */
     public TableWriter(String label, int delay) {
         super(label, delay);
     }
-@Override
+    
+    
+    @Override
     public void configure(Descriptor config) throws ConfigurationException {
         super.configure(config); //To change body of generated methods, choose Tools | Templates.
         
@@ -176,6 +191,10 @@ public class TableWriter extends MessagableImpl implements OutputConnection {
         this.db.setSimpleSourceString(this.location, this.username, this.password);
     }    
     
+    /**
+     * Insert all current messages from inbox into the database.
+     * @return the number of insertions made.
+     */
     public int insertMessagesIntoDB(){
         ///todo: Custom fields. 
         
@@ -234,7 +253,7 @@ public class TableWriter extends MessagableImpl implements OutputConnection {
      * Retrieves all messages from the inbox and outputs them to the database.
      * @return Number of records inserted..
      */
- @Override
+    @Override
     public int consumeMessagesAndWriteOutput() {
         return this.insertMessagesIntoDB(); //Dump all messages.
     }
@@ -244,7 +263,7 @@ public class TableWriter extends MessagableImpl implements OutputConnection {
      * @param stepPar
      * @return Number of records inserted.
      */
- @Override
+    @Override
     public int consumeMessagesAndWriteOutput(Step stepPar) {
         return this.insertMessagesIntoDB();//Dump all messages.
     }

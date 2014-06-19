@@ -43,56 +43,97 @@ import gov.sandia.seme.util.ControllerImpl;
  */
 public class InternalClock extends ControllerImpl {
 
+    /**
+     * Get the configuration. Currently not supported.
+     * @return The current configuration.
+     */
     @Override
     public Descriptor getConfiguration() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Run the current program. Currently not supported.
+     */
     @Override
     public void run() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Set the current save state. Currently not supported.
+     */
     @Override
     public void saveState() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Set the current load state. Currently not supported.
+     */
     @Override
     public void loadState() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Configure the current object with a given descriptor. Currently not supported.
+     * @param controls The descriptor to use for configuring current object.
+     */
     @Override
     public void configure(Descriptor controls) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Set the step start value.
+     * @param step The step start value.
+     */
     @Override
     public void setStepStart(Step step) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Get the step start value.
+     * @return The step start value.
+     */
     @Override
     public Step getStepStart() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Set the step stop value.
+     * @param step The step stop value.
+     */
     @Override
     public void setStepStop(Step step) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Get the step stop value.
+     * @return The step stop value.
+     */
     @Override
     public Step getStepStop() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Set the step base value.
+     * @param step The value to set.
+     */
     @Override
     public void setStepBase(Step step) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Get the step base value.
+     * @return 
+     */
     @Override
     public Step getStepBase() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

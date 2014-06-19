@@ -43,14 +43,26 @@ public enum EventStatus {
 
     private final int code;
 
+    /**
+     * Set the current code.
+     * @param code The code value.
+     */
     EventStatus(int code) {
         this.code = code;
     }
 
+    /**
+     * Get the value of the code.
+     * @return The code.
+     */
     public int code() {
         return code;
     }
-
+    /**
+     * Parse the provided code.
+     * @param code The code to parse.
+     * @return The parsed code array.
+     */
     public static String[] parseCode(int code) {
         ArrayList<String> res = new ArrayList();
         res.add(Integer.toString(code));
