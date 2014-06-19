@@ -13,7 +13,6 @@
         <module>canaryeds-base</module>
         <module>canaryeds-program</module>
         <module>seme-framework-1.0</module>
-        <module>canaryeds-external-eddies</module>
     </modules>
     <licenses>
         <license>
