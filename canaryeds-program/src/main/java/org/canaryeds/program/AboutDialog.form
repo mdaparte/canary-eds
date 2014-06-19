@@ -45,7 +45,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="versionLabel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane3" pref="269" max="32767" attributes="0"/>
+              <Component id="jScrollPane3" max="32767" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="okButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
@@ -68,7 +68,7 @@
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/gov/sandia/canaryeds/base/canary_graphic.png"/>
+          <Image iconType="3" name="/org/canaryeds/program/canary_graphic.png"/>
         </Property>
         <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>

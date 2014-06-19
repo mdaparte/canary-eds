@@ -103,7 +103,7 @@ public class AboutDialog extends javax.swing.JDialog {
             }
         });
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gov/sandia/canaryeds/base/canary_graphic.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/canaryeds/program/canary_graphic.png"))); // NOI18N
         jLabel1.setToolTipText("");
 
         jTextPane1.setContentType("text/html"); // NOI18N
@@ -136,7 +136,7 @@ public class AboutDialog extends javax.swing.JDialog {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(versionLabel)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jScrollPane3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE)
+                .add(jScrollPane3)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(okButton)
                 .add(6, 6, 6))

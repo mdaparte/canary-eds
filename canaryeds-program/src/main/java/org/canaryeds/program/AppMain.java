@@ -63,7 +63,7 @@ public class AppMain extends javax.swing.JFrame {
     public AppMain() {
         this.eds = new CANARY();
         try {
-            icon = ImageIO.read(this.getClass().getResource("/gov/sandia/canaryeds/base/icon.png"));
+            icon = ImageIO.read(this.getClass().getResource("/org/canaryeds/base/icon.png"));
         } catch (IOException ex) {
         }
         initComponents();
