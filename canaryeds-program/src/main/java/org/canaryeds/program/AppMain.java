@@ -193,7 +193,7 @@ public class AppMain extends javax.swing.JFrame {
         configfileTextField.setEditable(false);
         configfileTextField.setToolTipText("The configuration file to run");
 
-        startButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gov/sandia/canaryeds/base/icon.png"))); // NOI18N
+        startButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/canaryeds/program/icon.png"))); // NOI18N
         startButton.setText("Start");
         startButton.setToolTipText("Start running CANARY-EDS 5.0");
         startButton.setName(""); // NOI18N
@@ -347,7 +347,7 @@ public class AppMain extends javax.swing.JFrame {
                             .add(layout.createSequentialGroup()
                                 .add(statusLabel)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                .add(statusText, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 422, Short.MAX_VALUE)))
+                                .add(statusText, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)))
                         .add(18, 18, 18)
                         .add(startButton)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)

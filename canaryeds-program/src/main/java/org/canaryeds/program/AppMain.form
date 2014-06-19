@@ -182,7 +182,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="statusLabel" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="statusText" pref="422" max="32767" attributes="0"/>
+                              <Component id="statusText" pref="354" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
@@ -313,7 +313,7 @@
     <Component class="javax.swing.JButton" name="startButton">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/gov/sandia/canaryeds/base/icon.png"/>
+          <Image iconType="3" name="/org/canaryeds/program/icon.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Start"/>
         <Property name="toolTipText" type="java.lang.String" value="Start running CANARY-EDS 5.0"/>
