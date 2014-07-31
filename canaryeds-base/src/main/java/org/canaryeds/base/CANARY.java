@@ -546,6 +546,7 @@ public final class CANARY extends Engine implements Serializable {
             Yaml yaml = new Yaml(new Constructor(), new Representer(),
                     new DumperOptions(), new CustomResolver());
             config = (HashMap) yaml.load(stream);
+            stream.close();
             LOG.debug("Parsed " + stream.toString());
             // Create a log file in the same directory as the configuration file
             Logger.getRootLogger().addAppender(new FileAppender(
@@ -572,6 +573,7 @@ public final class CANARY extends Engine implements Serializable {
             JSONParser parser = new JSONParser();
             config = (HashMap) parser.parse(new InputStreamReader(stream));
             LOG.debug("Parsed " + stream.toString());
+            stream.close();
             // Create a log file in the same directory as the configuration file
             Logger.getRootLogger().addAppender(new FileAppender(
                     new EnhancedPatternLayout("%d{DATE} %-5p: %m%n"),
