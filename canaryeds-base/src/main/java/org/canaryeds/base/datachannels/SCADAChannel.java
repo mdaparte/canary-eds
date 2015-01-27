@@ -74,10 +74,10 @@ public class SCADAChannel implements DataChannel {
 
     private static final Logger LOG = Logger.getLogger(SCADAChannel.class);
     ArrayList<DataChannel> linkedChannels;
-    final boolean copyMissing = false;
+    final boolean copyMissing;
     int dataFrameSize;
-    int almAbnormal = Integer.MAX_VALUE;
-    DataStatus currentStatus = DataStatus.MISSING;
+    int almAbnormal;
+    DataStatus currentStatus;
     LazyModulusArray dataValues;
     String name;
     HashMap options;
@@ -85,14 +85,23 @@ public class SCADAChannel implements DataChannel {
     String tag;
     ChannelUsage usage = null;
     int currentIndex;
-    boolean warnedNoStatus = false;
-    double validRangeLow = Double.NEGATIVE_INFINITY;
-    double validRangeHigh = Double.POSITIVE_INFINITY;
-    double setPointLow = Double.NEGATIVE_INFINITY;
-    double setPointHigh = Double.POSITIVE_INFINITY;
-    final HashMap<String, Object> metaData = new HashMap();
+    boolean warnedNoStatus;
+    double validRangeLow;
+    double validRangeHigh;
+    double setPointLow;
+    double setPointHigh;
+    final HashMap<String, Object> metaData;
 
     public SCADAChannel() {
+        this.setPointHigh = Double.POSITIVE_INFINITY;
+        this.setPointLow = Double.NEGATIVE_INFINITY;
+        this.validRangeHigh = Double.POSITIVE_INFINITY;
+        this.validRangeLow = Double.NEGATIVE_INFINITY;
+        this.warnedNoStatus = false;
+        this.currentStatus = DataStatus.MISSING;
+        this.almAbnormal = Integer.MAX_VALUE;
+        this.copyMissing = false;
+        this.metaData = new HashMap();
         this.requires = new ArrayList();
         this.linkedChannels = new ArrayList();
         this.dataFrameSize = 100;

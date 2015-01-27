@@ -31,6 +31,7 @@ import gov.sandia.seme.framework.InitializationException;
 import gov.sandia.seme.framework.InvalidComponentClassException;
 import gov.sandia.seme.util.MessagableImpl;
 import static java.lang.Math.max;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -126,7 +127,7 @@ public final class Station extends MessagableImpl implements ModelConnection {
     /**
      * List of events that have been recorded.
      */
-    protected final ArrayList<EventRecord> events = new ArrayList();
+    protected final ArrayList<EventRecord> events;
     
     /**
      * The configuration object.
@@ -184,12 +185,27 @@ public final class Station extends MessagableImpl implements ModelConnection {
     protected Workflow workflow = null;
 
     /**
+     * Instantiate a station with almost no information.
+     * @param label The station label.
+     */
+    public Station(String label) {
+        super(label, 0);
+        this.events = new ArrayList();
+        this.synchronizeToTags = new ArrayList();
+        this.recvdStatusForCurrentStep = new boolean[0];
+        this.workflow = null;
+        this.channels = new HashMap();
+        this.channelList = new ArrayList();
+    }
+
+    /**
      * Instantiate a station with a given label and delay.
      * @param label The station label.
      * @param d  The station delay.
      */
     public Station(String label, int d) {
         super(label, d);
+        this.events = new ArrayList();
         this.synchronizeToTags = new ArrayList();
         this.recvdStatusForCurrentStep = new boolean[0];
         this.workflow = null;
@@ -205,6 +221,7 @@ public final class Station extends MessagableImpl implements ModelConnection {
      */
     public Station(String label, int d, Descriptor conf) {
         super(label, d);
+        this.events = new ArrayList();
         this.synchronizeToTags = new ArrayList();
         this.recvdStatusForCurrentStep = new boolean[0];
         this.channels = new HashMap();
@@ -218,6 +235,7 @@ public final class Station extends MessagableImpl implements ModelConnection {
      */
     public Station(Descriptor conf) {
         super(conf.getName(), 10);
+        this.events = new ArrayList();
         this.synchronizeToTags = new ArrayList();
         this.recvdStatusForCurrentStep = new boolean[0];
         this.channels = new HashMap();
@@ -452,7 +470,13 @@ public final class Station extends MessagableImpl implements ModelConnection {
          % end
          */
         executing = true;
-        Step step = this.getCurrentStep();
+        Step step;
+        try {
+            step = this.getCurrentStep().getClass().getConstructor(this.getCurrentStep().getClass()).newInstance(this.getCurrentStep());
+        } catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+            LOG.error("Problem creating new step!", ex);
+            throw new RuntimeException("Error creating a new step of type: "+Step.class.toString());
+        }
         Message retMessage;
         HashMap<String, Object> statusData = new HashMap();
         statusData.put("code", 0);

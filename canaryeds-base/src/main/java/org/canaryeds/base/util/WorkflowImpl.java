@@ -67,17 +67,24 @@ public abstract class WorkflowImpl implements Workflow {
     protected ResizableDoubleArray bedWindow;
     protected BinomialDistribution BED;
     protected int ct_eventTimeout = 0;
-    protected final ArrayList<Double> rawData = new ArrayList<>();
-    protected final ArrayList<Integer> violations = new ArrayList<>();
-    protected final ArrayList<Short> contributed = new ArrayList<>();
-    protected final ArrayList<Double> residuals = new ArrayList<>();
-    protected final ArrayList<String> parameters = new ArrayList();
-    protected final ArrayList<String> tags = new ArrayList();
+    protected final ArrayList<Double> rawData;
+    protected final ArrayList<Integer> violations;
+    protected final ArrayList<Short> contributed;
+    protected final ArrayList<Double> residuals;
+    protected final ArrayList<String> parameters;
+    protected final ArrayList<String> tags;
     protected double probability;
     protected EventStatus status;
-    protected final HashMap<String, Object> metaData = new HashMap();
+    protected final HashMap<String, Object> metaData;
 
     public WorkflowImpl() {
+        this.metaData = new HashMap();
+        this.tags = new ArrayList();
+        this.parameters = new ArrayList();
+        this.residuals = new ArrayList<>();
+        this.contributed = new ArrayList<>();
+        this.violations = new ArrayList<>();
+        this.rawData = new ArrayList<>();
         this.sz_historyWindow = -10;
         this.outlierThreshold = -1.0;
         this.eventThreshold = -1.0;

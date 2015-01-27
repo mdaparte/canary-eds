@@ -51,28 +51,28 @@ import org.json.simple.JSONValue;
 public class EventRecord {
 
     String stationName;
-    int eventIndex = -1;
-    int startIndex = -1;
-    int finalIndex = -1;
-    int numOutliers = 0;
-    boolean hasNonNormalStatus = false;
-    boolean completed = false;
+    int eventIndex;
+    int startIndex;
+    int finalIndex;
+    int numOutliers;
+    boolean hasNonNormalStatus;
+    boolean completed;
     // per channel values
-    final ArrayList<DataChannel> channels = new ArrayList();
-    final ArrayList<DataChannel> workflowChannels = new ArrayList();
-    final ArrayList<String> channelNames = new ArrayList();
-    final ArrayList<String> parameters = new ArrayList();
-    final ArrayList<String> usages = new ArrayList();
+    final ArrayList<DataChannel> channels;
+    final ArrayList<DataChannel> workflowChannels;
+    final ArrayList<String> channelNames;
+    final ArrayList<String> parameters;
+    final ArrayList<String> usages;
     // per step values
-    final ArrayList<Step> steps = new ArrayList();
-    final ArrayList<Double> probability = new ArrayList();
-    final ArrayList<EventStatus> stationStatus = new ArrayList();
+    final ArrayList<Step> steps;
+    final ArrayList<Double> probability;
+    final ArrayList<EventStatus> stationStatus;
     // per channel per step
-    final HashMap<String, ArrayList<Double>> rawData = new HashMap();
-    final HashMap<String, ArrayList<Double>> residuals = new HashMap();
-    final HashMap<String, ArrayList<Short>> contributed = new HashMap();
-    final HashMap<String, ArrayList<Integer>> limitViolation = new HashMap();
-    final HashMap<String, ArrayList<DataStatus>> channelStatus = new HashMap();
+    final HashMap<String, ArrayList<Double>> rawData;
+    final HashMap<String, ArrayList<Double>> residuals;
+    final HashMap<String, ArrayList<Short>> contributed;
+    final HashMap<String, ArrayList<Integer>> limitViolation;
+    final HashMap<String, ArrayList<DataStatus>> channelStatus;
 
     /**
      * Event Record Object
@@ -80,6 +80,25 @@ public class EventRecord {
      * @param dataChannels  List of data channels.
      */
     public EventRecord(String stationName, ArrayList<DataChannel> dataChannels) {
+        this.completed = false;
+        this.hasNonNormalStatus = false;
+        this.numOutliers = 0;
+        this.finalIndex = -1;
+        this.startIndex = -1;
+        this.eventIndex = -1;
+        this.channelStatus = new HashMap();
+        this.limitViolation = new HashMap();
+        this.contributed = new HashMap();
+        this.residuals = new HashMap();
+        this.rawData = new HashMap();
+        this.stationStatus = new ArrayList();
+        this.probability = new ArrayList();
+        this.steps = new ArrayList();
+        this.usages = new ArrayList();
+        this.parameters = new ArrayList();
+        this.channelNames = new ArrayList();
+        this.workflowChannels = new ArrayList();
+        this.channels = new ArrayList();
         this.stationName = stationName;
         this.channels.addAll(dataChannels);
         for (DataChannel channel : this.channels) {
@@ -112,7 +131,9 @@ public class EventRecord {
         this.eventIndex = this.steps.get(0).getIndex();
         HashMap map = new HashMap();
         map.put("stationName", stationName);
-        map.put("startIndex", +eventIndex);
+        map.put("startIndex", startIndex);
+        map.put("eventIndex", eventIndex);
+        map.put("finalIndex", finalIndex);
         map.put("channelNames", channelNames);
         map.put("parameters", parameters);
         map.put("usages", usages);
