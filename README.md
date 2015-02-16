@@ -26,16 +26,21 @@ The following directory structure exists for the CANARYEDS repository
 To build CANARYEDS:
 
 1. Build v1.0 of the [Seme Framework](https://github.com/willfurnass/seme), or install the Jar for `seme-framework-1.0.jar` into your local maven repo
+
     ``` bash
-        cd seme/seme-framework
+        cd seme/seme-framework 
         mvn clean compile install
     ```
+
 2. Install the `org.canaryeds::gov-sandia-canaryeds` parent POM in your local maven repo
+
     ``` bash
         cd canaryeds-pom
         mvn install
     ```
+
 3. Build the `canaryeds-base` module to get the library functions
+
     ``` bash
         cd canaryeds-base
         mvn clean compile install
